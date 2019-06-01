@@ -1,20 +1,26 @@
-public class ClosedHash<K extends Comparable<K>, T> {
+import java.util.Iterator;
+
+public class ClosedHash<K extends Comparable<K>, T> implements Iterable<T> {
 
     private int size;
     private HashNode<K, T>[] hash;
     private int mod;
-    private int config;
+    private ColissionManagement config;
 
-    public ClosedHash(int size, int mod, int config) {
+    public ClosedHash(int size, int mod, ColissionManagement config) {
         this.size = size;
         hash = new HashNode[size];
         this.mod = mod;
         this.config = config;
     }
 
-    public void putL(K key, T data) {
+    public void put(K key, T data) {
 
         int pos = hashFun(key);
+
+        int counter = 0;
+
+        boolean isFull = false;
 
         if (hash[pos] == null) {
 
@@ -28,249 +34,153 @@ public class ClosedHash<K extends Comparable<K>, T> {
 
         } else {
 
-            int i = pos;
+            int j = 0;
 
-            while (hash[i] != null && hash[i].getState() == 0) {
+            while (hash[pos] != null && hash[pos].getState() == 0 && !isFull) {
 
-                i++;
 
-                if (i >= hash.length) i = 0;
+                counter++;
 
+                if (counter == size) isFull = true;
+
+                pos = nuevaColision(pos, j);
             }
 
-            if (hash[i] == null) {
+            if (hash[pos] == null) {
 
-                hash[i] = new HashNode<>(key, data, 0);
+                hash[pos] = new HashNode<>(key, data, 0);
 
             } else {
 
-                hash[i].setKey(key);
-                hash[i].setData(data);
-                hash[i].setState(0);
+                hash[pos].setKey(key);
+                hash[pos].setData(data);
+                hash[pos].setState(0);
 
             }
         }
     }
 
-    public void putC(K key, T data) {
+    public T get(K key) throws KeyNotFoundException {
+
+        int posIni = hashFun(key);
 
         int pos = hashFun(key);
 
-        if (hash[pos] == null) {
+        int j = 0;
 
-            hash[pos] = new HashNode<>(key, data, 0);
+        if (hash[pos] == null) throw new KeyNotFoundException();
 
-        } else if (hash[pos].getState() == 1) {
+        else if (hash[pos].getKey().compareTo(key) == 0) return hash[pos].getData();
 
-            hash[pos].setKey(key);
-            hash[pos].setData(data);
-            hash[pos].setState(0);
+        else {
 
-        } else {
+            pos = nuevaColision(pos, j);
 
-            int i = pos, j = 0;
+            while (hash[pos] != null && pos != posIni && hash[pos].getKey().compareTo(key) != 0) {
 
-            while (hash[i] != null && hash[i].getState() == 0) {
+                pos = nuevaColision(pos, j);
 
+            }
+
+            if (hash[pos] == null || pos == posIni) throw new KeyNotFoundException();
+
+            return hash[pos].getData();
+
+        }
+    }
+
+    public int nuevaColision(int pos, int j) {
+
+        switch (config) {
+            case LINEAR:
+                pos = funcionLineal(pos) % size;
+                break;
+
+            case QUAD:
                 j++;
+                pos = funcionCuadratica(pos, j) % size;
+                break;
 
-                i = i + (int) Math.pow(j, 2);
-
-                if (i == hash.length) {
-
-                    i = 0;
-
-                } else if (i > hash.length) {
-
-                    while (i > hash.length) {
-
-                        i = i - hash.length;
-
-                    }
-                }
-            }
-
-            if (hash[i] == null) {
-
-                hash[i] = new HashNode<>(key, data, 0);
-
-            } else {
-
-                hash[i].setKey(key);
-                hash[i].setData(data);
-                hash[i].setState(0);
-
-            }
-        }
-
-    }
-
-    public T getL(K key) throws KeyNotFoundException {
-
-        int pos = hashFun(key);
-
-        while (hash[pos] != null && hash[pos].getState() == 0 && hash[pos].getKey().compareTo(key) != 0) {
-
-
-            pos = (funcionLineal(pos)) % size;
+            case CUBIC:
+                j++;
+                pos = funcionCubica(pos, j) % size;
+                break;
 
         }
 
-        if (hash[pos] == null || hash[pos].getState() == 1) throw new KeyNotFoundException();
-
-        return hash[pos].getData();
+        return pos;
 
     }
 
-    public int funcionLineal(int pos) {
+    private int funcionLineal(int pos) {
         return pos + 1;
     }
 
-    public int funcionCuadratica(int pos) {
-        return
+    private int funcionCuadratica(int pos, int j) {
+        return pos + (int) Math.pow(j, 2);
     }
 
-    public T getC(K key) throws KeyNotFoundException {
-
-        int pos = hashFun(key), j = 0;
-
-        while (hash[pos] != null && hash[pos].getState() == 0 && hash[pos].getKey().compareTo(key) != 0) {
-
-            j++;
-
-            pos = pos + (int) Math.pow(j, 2);
-
-            if (pos == hash.length) {
-
-                pos = 0;
-
-            } else if (pos > hash.length) {
-
-                while (pos > hash.length) {
-
-                    pos = pos - hash.length;
-
-                }
-            }
-        }
-
-        if (hash[pos] == null || hash[pos].getState() == 1) throw new KeyNotFoundException();
-
-        return hash[pos].getData();
-
+    private int funcionCubica(int pos, int j) {
+        return pos + (int) Math.pow(j, 3);
     }
 
-    public boolean containsL(K key) {
+    public boolean contains(K key) {
+
+        int posIni = hashFun(key);
 
         int pos = hashFun(key);
 
-        while (hash[pos] != null && hash[pos].getState() == 0 &&hash[pos].getKey().compareTo(key) != 0) {
+        int j = 0;
 
-            pos++;
+        if (hash[pos] != null && hash[pos].getKey().compareTo(key) != 0) {
 
-            if (pos == hash.length) {
+            pos = nuevaColision(pos, j);
 
-                pos = 0;
+        } else return hash[pos] != null;
 
-            } else if (pos > hash.length) {
+        do {
 
-                while (pos > hash.length) {
+            pos = nuevaColision(pos, j);
 
-                    pos = pos - hash.length;
+        } while (hash[pos] != null && pos != posIni && hash[pos].getKey().compareTo(key) != 0);
 
-                }
-            }
-        }
+        return hash[pos] != null && pos != posIni;
 
-        return hash[pos] != null && hash[pos].getState() != 1;
 
     }
 
-    private HashNode<K, T> getL2(K key) throws KeyNotFoundException {
+    private HashNode<K, T> get2(K key) throws KeyNotFoundException {
+
+        int posIni = hashFun(key);
 
         int pos = hashFun(key);
 
-        while (hash[pos] != null && hash[pos].getState() == 0 && hash[pos].getKey().compareTo(key) != 0) {
+        int j = 0;
 
-            pos++;
+        if (hash[pos] == null) throw new KeyNotFoundException();
 
-            if (pos >= hash.length) pos = 0;
+        else if (hash[pos].getKey().compareTo(key) == 0) return hash[pos];
 
-        }
+        else {
 
-        if (hash[pos] == null || hash[pos].getState() == 1) throw new KeyNotFoundException();
+            pos = nuevaColision(pos, j);
 
-        return hash[pos];
+            while (hash[pos] != null && pos != posIni && hash[pos].getKey().compareTo(key) != 0) {
 
-    }
+                pos = nuevaColision(pos, j);
 
-    private HashNode<K, T> getC2(K key) throws KeyNotFoundException {
-
-        int pos = hashFun(key), j = 0;
-
-        while (hash[pos] != null && hash[pos].getState() == 0 && hash[pos].getKey().compareTo(key) != 0) {
-
-            j++;
-
-            pos = pos + (int) Math.pow(j, 2);
-
-            if (pos == hash.length) {
-
-                pos = 0;
-
-            } else if (pos > hash.length) {
-
-                while (pos > hash.length) {
-
-                    pos = pos - hash.length;
-
-                }
             }
+
+            if (hash[pos] == null || pos == posIni) throw new KeyNotFoundException();
+
+            return hash[pos];
+
         }
-
-        if (hash[pos] == null || hash[pos].getState() == 1) throw new KeyNotFoundException();
-
-        return hash[pos];
-
     }
 
-    public boolean containsC(K key) {
+    public void remove(K key) throws KeyNotFoundException {
 
-        int pos = hashFun(key), j = 0;
-
-        while (hash[pos] != null && hash[pos].getState() == 0 && hash[pos].getKey().compareTo(key) != 0) {
-
-            j++;
-
-            pos = pos + (int)Math.pow(j, 2);
-
-            if (pos == hash.length) {
-
-                pos = 0;
-
-            } else if (pos > hash.length) {
-
-                while (pos > hash.length) {
-
-                    pos = pos - hash.length;
-
-                }
-            }
-        }
-
-        return hash[pos] != null && hash[pos].getState() != 1;
-
-    }
-
-    public void removeL(K key) throws KeyNotFoundException {
-
-        getL2(key).setState(1);
-
-    }
-
-    public void removeC(K key) throws KeyNotFoundException {
-
-        getC2(key).setState(1);
+        get2(key).setState(1);
 
     }
 
@@ -280,5 +190,21 @@ public class ClosedHash<K extends Comparable<K>, T> {
 
     public HashNode<K, T>[] getHash() {
         return hash;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            int pos;
+            @Override
+            public boolean hasNext() {
+                return pos < hash.length;
+            }
+
+            @Override
+            public T next() {
+                return hash[pos++].getData();
+            }
+        };
     }
 }
