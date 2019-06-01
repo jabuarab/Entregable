@@ -1,20 +1,21 @@
 package um.edu.uy;
 
 public class Team {
-   private String  Nombre;
+
+    private String nombre;
 
     public Team() {
     }
 
     public Team(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 }

@@ -3,12 +3,16 @@ package um.edu.uy;
 import java.util.ArrayList;
 
 public class OlympicGame {
+
     String name;
+
     int year;
+
     SeasonType season;
+
     City ciudad;
 
-    ArrayList<Event> = new ArrayList<>;
+    ArrayList<Event> =new ArrayList<>;
 
     public OlympicGame() {
     }

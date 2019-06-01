@@ -1,9 +1,9 @@
 package um.edu.uy;
 
 public class Event {
-String name;
-Sport deporte;
+    String name;
 
+    Sport deporte;
 
     public Event() {
     }

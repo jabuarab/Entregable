@@ -3,7 +3,9 @@ package um.edu.uy;
 public class NationalOlympicCommitte {
 
     String name;
-    String  region;
+
+    String region;
+
     String notes;
 
     public String getNotes() {

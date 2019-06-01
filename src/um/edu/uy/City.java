@@ -1,13 +1,13 @@
 package um.edu.uy;
 
 public class City {
-String name;
+
+    String name;
 
     public City() {
     }
 
     public City(String name) {
-
         this.name = name;
     }
 
