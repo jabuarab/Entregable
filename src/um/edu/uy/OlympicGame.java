@@ -12,7 +12,7 @@ public class OlympicGame {
 
     City ciudad;
 
-    ArrayList<Event> =new ArrayList<>;
+    //ArrayList<Event> =new ArrayList<>;
 
     public OlympicGame() {
     }

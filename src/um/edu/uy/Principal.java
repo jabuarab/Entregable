@@ -25,7 +25,7 @@ public class Principal {
 
             String team = nextline[6];
 
-            String Noc = nextline[7];
+            String noc = nextline[7];
 
             String games = nextline[8];
 
