@@ -1,3 +1,7 @@
+package um.edu.uy.Tads.Hash;
+
+import um.edu.uy.Tads.KeyNotFoundException;
+
 import java.util.ArrayList;
 
 public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {

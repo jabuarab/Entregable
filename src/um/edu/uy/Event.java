@@ -1,11 +1,14 @@
 package um.edu.uy;
 
 public class Event {
-    String name;
 
-    Sport deporte;
+    private String name;
 
-    public Event() {
+    private Sport deporte;
+
+    public Event(String name, Sport deporte) {
+        this.name = name;
+        this.deporte = deporte;
     }
 
     public String getName() {

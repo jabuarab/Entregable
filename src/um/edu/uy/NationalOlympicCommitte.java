@@ -2,11 +2,22 @@ package um.edu.uy;
 
 public class NationalOlympicCommitte {
 
-    String name;
+    private String name;
 
-    String region;
+    private String region;
 
-    String notes;
+    private String notes;
+
+    public NationalOlympicCommitte(String name, String region, String notes) {
+        this.name = name;
+        this.region = region;
+        this.notes = notes;
+    }
+
+    public NationalOlympicCommitte(String region, String notes) {
+        this.region = region;
+        this.notes = notes;
+    }
 
     public String getNotes() {
         return notes;
@@ -14,14 +25,6 @@ public class NationalOlympicCommitte {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public NationalOlympicCommitte(String name, String region) {
-        this.name = name;
-        this.region = region;
-    }
-
-    public NationalOlympicCommitte() {
     }
 
     public String getRegion() {

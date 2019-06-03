@@ -1,14 +1,26 @@
 package um.edu.uy;
 
-public class Atlethe {
-    int age;
-    long id;
-    String name;
-    SexType sex;
-    float weigth;
-    float heigth;
-    Team team;
-    NationalOlympicCommitte noc;
+public class Athlete {
+
+    private long id;
+    private String name;
+    private SexType sex;
+    private int age;
+    private float heigth;
+    private float weigth;
+    private Team team;
+    private NationalOlympicCommitte noc;
+
+    public Athlete(long id, String name, SexType sex, int age, float heigth, float weigth, Team team, NationalOlympicCommitte noc) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.heigth = heigth;
+        this.weigth = weigth;
+        this.team = team;
+        this.noc = noc;
+    }
 
     public Team getTeam() {
         return team;
@@ -16,9 +28,6 @@ public class Atlethe {
 
     public void setTeam(Team team) {
         this.team = team;
-    }
-
-    public Atlethe() {
     }
 
     public long getId() {

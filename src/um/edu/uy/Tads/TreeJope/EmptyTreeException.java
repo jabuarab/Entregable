@@ -1,4 +1,4 @@
-package uy.edu.fium.prog2.exceptions;
+package um.edu.uy.Tads.TreeJope;
 
 public class EmptyTreeException extends Exception {
 }

@@ -1,3 +1,5 @@
+package um.edu.uy.Tads.Hash;
+
 public class HashNode<K extends Comparable<K>, T> {
 
     private K key;

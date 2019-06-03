@@ -1,15 +1,24 @@
 package um.edu.uy;
 
-public class AthleteOlympicPArticipation {
-    MedalType medalType;
-    Atlethe atleta;
-    OlympicGame juegoOlimpico;
+public class AthleteOlympicParticipation {
 
-    public Atlethe getAtleta() {
+    private MedalType medalType;
+
+    private Athlete atleta;
+
+    private OlympicGame juegoOlimpico;
+
+    public AthleteOlympicParticipation(MedalType medalType, Athlete atleta, OlympicGame juegoOlimpico) {
+        this.medalType = medalType;
+        this.atleta = atleta;
+        this.juegoOlimpico = juegoOlimpico;
+    }
+
+    public Athlete getAtleta() {
         return atleta;
     }
 
-    public void setAtleta(Atlethe atleta) {
+    public void setAtleta(Athlete atleta) {
         this.atleta = atleta;
     }
 
@@ -19,9 +28,6 @@ public class AthleteOlympicPArticipation {
 
     public void setJuegoOlimpico(OlympicGame juegoOlimpico) {
         this.juegoOlimpico = juegoOlimpico;
-    }
-
-    public AthleteOlympicPArticipation() {
     }
 
     public MedalType getMedalType() {

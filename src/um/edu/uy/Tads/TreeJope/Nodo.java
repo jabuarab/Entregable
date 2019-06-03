@@ -1,6 +1,6 @@
-package uy.edu.fium.prog2.tad.tree;
+package um.edu.uy.Tads.TreeJope;
 
-import uy.edu.fium.prog2.exceptions.KeyNotFoundException;
+import um.edu.uy.Tads.KeyNotFoundException;
 
 public class Nodo<K extends Comparable<K>, T> {
 
@@ -37,6 +37,24 @@ public class Nodo<K extends Comparable<K>, T> {
         }
     }
 
+    public boolean contains(K key) {
+        if (this.getKey().compareTo(key) > 0) {
+            if (this.getLeftChild() == null) {
+                return false;
+            } else {
+                return this.getLeftChild().contains(key);
+            }
+        } else if (this.getKey().compareTo(key) < 0) {
+            if (this.getRightChild() == null) {
+                return false;
+            } else {
+                return this.getRightChild().contains(key);
+            }
+        } else {
+            return true;
+        }
+    }
+
     public void add(K key, T data) {
         if (this.getKey().compareTo(key) > 0) {
             if (this.getLeftChild() == null) {
@@ -60,11 +78,11 @@ public class Nodo<K extends Comparable<K>, T> {
     public Nodo<K, T> delete(K key) {
         if (this.key.compareTo(key) > 0) {
 
-            if(rightChild != null) leftChild = leftChild.delete(key);
+            if (rightChild != null) leftChild = leftChild.delete(key);
 
         } else if (this.key.compareTo(key) < 0) {
 
-            if(rightChild != null) rightChild = rightChild.delete(key);
+            if (rightChild != null) rightChild = rightChild.delete(key);
 
         } else if (leftChild != null && leftChild != null) {
 
@@ -130,7 +148,7 @@ public class Nodo<K extends Comparable<K>, T> {
 
     public Nodo<K, T> findMin() {
         Nodo<K, T> temp = this;
-        if(this.getLeftChild() != null) {
+        if (this.getLeftChild() != null) {
             temp = this.getLeftChild().findMin();
         }
         return temp;

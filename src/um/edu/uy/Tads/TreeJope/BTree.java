@@ -1,8 +1,6 @@
-package uy.edu.fium.prog2.tad.tree;
+package um.edu.uy.Tads.TreeJope;
 
-import uy.edu.fium.prog2.exceptions.EmptyTreeException;
-import uy.edu.fium.prog2.exceptions.KeyNotFoundException;
-import uy.edu.um.prog2.exceptions.PosicionInvalidaException;
+import um.edu.uy.Tads.KeyNotFoundException;
 import uy.edu.um.prog2.tad.linkedlist.ListaEnlazada2;
 
 public class BTree<K extends Comparable<K>, T> implements MyTree<K, T> {
@@ -75,9 +73,9 @@ public class BTree<K extends Comparable<K>, T> implements MyTree<K, T> {
 
     @Override
     public ListaEnlazada2<T> inOrder(Nodo<K, T> nodo) {
-        if(nodo != null) {
+        if (nodo != null) {
             this.inOrder(nodo.getLeftChild());
-            if(!inOrderList.contains(nodo.getData())) inOrderList.add(nodo.getData());
+            if (!inOrderList.contains(nodo.getData())) inOrderList.add(nodo.getData());
             this.inOrder(nodo.getRightChild());
         }
         return inOrderList;
@@ -85,8 +83,8 @@ public class BTree<K extends Comparable<K>, T> implements MyTree<K, T> {
 
     @Override
     public ListaEnlazada2<T> preOrder(Nodo<K, T> nodo) {
-        if(nodo != null) {
-            if(!preOrderList.contains(nodo.getData()))preOrderList.add(nodo.getData());
+        if (nodo != null) {
+            if (!preOrderList.contains(nodo.getData())) preOrderList.add(nodo.getData());
             this.preOrder(nodo.getLeftChild());
             this.preOrder(nodo.getRightChild());
         }
@@ -95,12 +93,16 @@ public class BTree<K extends Comparable<K>, T> implements MyTree<K, T> {
 
     @Override
     public ListaEnlazada2<T> postOrder(Nodo<K, T> nodo) {
-        if(nodo != null) {
+        if (nodo != null) {
             this.postOrder(nodo.getLeftChild());
             this.postOrder(nodo.getRightChild());
-            if(!posOrderList.contains(nodo.getData()))posOrderList.add(nodo.getData());
+            if (!posOrderList.contains(nodo.getData())) posOrderList.add(nodo.getData());
         }
         return posOrderList;
+    }
+
+    public boolean contains(K key) {
+        return root.contains(key);
     }
 
     public Nodo<K, T> getRoot() {

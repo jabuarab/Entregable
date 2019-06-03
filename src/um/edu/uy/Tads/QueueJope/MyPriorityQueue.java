@@ -1,4 +1,4 @@
-package uy.edu.um.prog2.tad.queue;
+package um.edu.uy.Tads.QueueJope;
 
 import uy.edu.um.prog2.exceptions.EmptyQueueException;
 import uy.edu.um.prog2.exceptions.PosicionInvalidaException;

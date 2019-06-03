@@ -4,8 +4,7 @@ public class Team {
 
     private String nombre;
 
-    public Team() {
-    }
+    private Athlete[] atletas;
 
     public Team(String nombre) {
         this.nombre = nombre;

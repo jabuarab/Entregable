@@ -1,7 +1,6 @@
-package uy.edu.fium.prog2.tad.tree;
+package um.edu.uy.Tads.TreeJope;
 
-import uy.edu.fium.prog2.exceptions.EmptyTreeException;
-import uy.edu.fium.prog2.exceptions.KeyNotFoundException;
+import um.edu.uy.Tads.KeyNotFoundException;
 import uy.edu.um.prog2.tad.linkedlist.ListaEnlazada2;
 
 public interface MyTree<K extends Comparable<K>, T> {

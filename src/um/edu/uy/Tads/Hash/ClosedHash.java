@@ -1,3 +1,7 @@
+package um.edu.uy.Tads.Hash;
+
+import um.edu.uy.Tads.KeyNotFoundException;
+
 import java.util.Iterator;
 
 public class ClosedHash<K extends Comparable<K>, T> implements Iterable<T> {

@@ -1,4 +1,4 @@
-package uy.edu.um.prog2.exceptions;
+package um.edu.uy.Tads;
 
 public class PosicionInvalidaException extends Exception {
 }
