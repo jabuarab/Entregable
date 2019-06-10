@@ -5,6 +5,7 @@ import java.security.PrivateKey;
 import java.util.Scanner;
 
 public class Menu {
+
     private static Scanner sc = new Scanner(System.in);
 
     private static void One(){
@@ -26,12 +27,7 @@ public class Menu {
 
     }
 
-
-
-
     public static void menu() {
-
-
 
         boolean salir = false;
 
@@ -47,19 +43,27 @@ public class Menu {
 
                 case 1:
 
-
+                    One();
 
                     break;
                 case 2:
 
+                    Two();
+
                     break;
                 case 3:
+
+                    Three();
 
                     break;
                 case 4:
 
+                    Four();
+
                     break;
                 case 5:
+
+                    Five();
 
                     break;
                 case 6:
@@ -71,6 +75,7 @@ public class Menu {
                     break;
                 default:
 
+                    System.out.println("Opcion no valida.");
 
                     break;
             }

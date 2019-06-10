@@ -24,7 +24,9 @@ public class Repositorio {
     public static BTree<String, Team> teams = new BTree<>();
 
     public static void init() {
+
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Cargando datos...");
 
         ClosedHash<String, NationalOlympicCommitte> regions = new ClosedHash<>(232, 232, ColissionManagement.LINEAR);
