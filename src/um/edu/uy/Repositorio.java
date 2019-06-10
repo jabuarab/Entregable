@@ -73,7 +73,7 @@ public class Repositorio {
 
             while ((line2 = br2.readLine()) != null) {
 
-                String[] atleta = line2.split(";");
+                String[] atleta = line2.split(",");
 
                 //atleta[0] = atleta[0].substring(1, atleta[0].length() - 1);
 
