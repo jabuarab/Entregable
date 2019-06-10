@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Repositorio {
 
 
-    public static OpenHash<String, Athlete> atletas = new OpenHash<>(231, 232);
+    public static OpenHash<String, Athlete> atletas = new OpenHash<>(232, 232);
 
     public static OpenHash<String, NationalOlympicCommitte> regions = new OpenHash<>(232, 232);
 
