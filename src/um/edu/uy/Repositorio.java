@@ -10,10 +10,13 @@ import um.edu.uy.Tads.TreeJope.BTree;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Scanner;
 
 public class Repositorio {
 
+
+ // hacer los 8 nueve tads heaps de medallas
 
     public static OpenHash<String, Athlete> atletas = new OpenHash<>(232, 232);
 
@@ -35,7 +38,7 @@ public class Repositorio {
 
         OpenHash<Integer, AthleteOlympicParticipation> participations = new OpenHash<>(140000, 140000);
 
-
+        long previousid =-1;
         String line1;
 
         String line2;
@@ -53,9 +56,12 @@ public class Repositorio {
             while ((line1 = br1.readLine()) != null) {
 
                 String[] nocs = line1.split(",");
+                if (nocs[0].equals("SIN")){
+                    nocs[0]="SGP" ;
+                }
+
 
                 if (nocs.length == 3) {
-
                     nocs[2] = nocs[2].substring(1, nocs[2].length() - 1);
 
                     regions.put(nocs[0], new NationalOlympicCommitte(nocs[0], nocs[1], nocs[2]));
@@ -121,8 +127,10 @@ public class Repositorio {
 
                 Athlete tempAtleta = new Athlete(id, name, sex, age, height, weight,
                         team, regions.get(atleta[7]));
-                atletas.put(tempAtleta.getNoc().getName(), tempAtleta);
-
+                if(tempAtleta.getId()!=previousid) {
+                    atletas.put(tempAtleta.getNoc().getName(), tempAtleta);
+                }
+                previousid = tempAtleta.getId();
                 SeasonType season;
 
                 //atleta[10] = atleta[10].substring(1, atleta[10].length() - 1);
@@ -154,22 +162,62 @@ public class Repositorio {
                 Event event = new Event(atleta[13], sport);
 
                 //atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
-
+                int arraymMdalVAr=0;
                 MedalType medal;
 
                 switch (atleta[14]) {
                     case "Gold":
                         medal = MedalType.GOLD;
+                        arraymMdalVAr=1;
                         break;
                     case "Silver":
                         medal = MedalType.SILVER;
+                        arraymMdalVAr=2;
                         break;
                     case "Bronze":
                         medal = MedalType.BRONZE;
+                        arraymMdalVAr =3;
                         break;
                     default:
                         medal = MedalType.NA;
+                        arraymMdalVAr=0;
                         break;
+                }
+
+                if(arraymMdalVAr != 0){
+                    switch (arraymMdalVAr){
+                        case 1:
+                            int[] a =atletas.get(atleta[0]).getMedallas();
+                            a[1]=a[1]+1;
+                            a[0]=a[0]+1;
+                            atletas.get(atleta[0]).setMedallas(a);  // estoy en duda si esto funciona bien
+                            int[] a1= regions.get(tempAtleta.getNoc().getName()).getMedallas();
+                            a1[1]=a1[1]+1;
+                            a1[0]=a1[0]+1;
+                            regions.get(tempAtleta.getNoc().getName()).setMedallas(a1);
+                            break;
+                        case 2:
+                            int[] b =atletas.get(atleta[0]).getMedallas();
+                            b[2]=b[2]+1;
+                            b[0]=b[0]+1;
+                            atletas.get(atleta[0]).setMedallas(b);  // estoy en duda si esto funciona bien
+                            int[] b1= regions.get(tempAtleta.getNoc().getName()).getMedallas();
+                            b1[1]=b1[1]+1;
+                            b1[0]=b1[0]+1;
+                            regions.get(tempAtleta.getNoc().getName()).setMedallas(b1);
+
+                            break;
+                        case 3:
+                            int[] c =atletas.get(atleta[0]).getMedallas();
+                            c[2]=c[2]+1;
+                            c[0]=c[0]+1;
+                            atletas.get(atleta[0]).setMedallas(c);  // estoy en duda si esto funciona bien
+                            int[] c1= regions.get(tempAtleta.getNoc().getName()).getMedallas();
+                            c1[1]=c1[1]+1;
+                            c1[0]=c1[0]+1;
+                            regions.get(tempAtleta.getNoc().getName()).setMedallas(c1);
+                            break;
+                    }
                 }
 
                 participations.put(Integer.parseInt(atleta[0]), new AthleteOlympicParticipation(medal, tempAtleta, game));

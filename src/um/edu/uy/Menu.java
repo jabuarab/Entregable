@@ -28,42 +28,77 @@ public class Menu {
     }
 
     public static void menu() {
-
+        boolean datoscargados = false;
         boolean salir = false;
+        String mensajeDatos = "No hay datos cargados :(";
 
-        System.out.println("Bienvenido! Seleccione una opcion: ");
-
-        System.out.println("1- Atletas con mas medallas     2- Regiones con mas medallas    3- JJOO con mas atletas femeninas");
-
-        System.out.println("4- Competiciones con mas atletas de determinado sexo    5- Equipos mas efectivos    6- Salir");
+        System.out.println("Bienvenido! Seleccione una opcion: \n" +
+                " 0- Cargar datos\n" +
+                " 1- Atletas con mas medallas \n" +
+                " 2- Regiones con mas medallas \n " +
+                "3- JJOO con mas atletas femeninas \n " +
+                "  4- Competiciones con mas atletas de determinado sexo  \n " +
+                " 5- Equipos mas efectivos  \n" +
+                "   6- Salir");
 
         while (!salir) {
 
             switch (sc.nextInt()) {
+                case 0:
+                    if(!datoscargados){
+                        Repositorio.init();
+                    }else{
+                        System.out.println("Datos ya cargados :)");
+                    }
+                    break;
 
                 case 1:
-
-                    One();
+                    if(datoscargados){
+                    One();}
+                    else{
+                        System.out.println(mensajeDatos);
+                    }
 
                     break;
                 case 2:
 
-                    Two();
+                    if(datoscargados){
+                        Two();
+                    }
+                    else{
+                        System.out.println(mensajeDatos);
+                    }
 
                     break;
                 case 3:
 
-                    Three();
+                    if(datoscargados){
+                        Three();
+                    }
+                    else{
+                        System.out.println(mensajeDatos);
+                    }
+
 
                     break;
                 case 4:
 
-                    Four();
+                    if(datoscargados){
+                        Four();
+                    }
+                    else{
+                        System.out.println(mensajeDatos);
+                    }
 
                     break;
                 case 5:
 
-                    Five();
+                    if(datoscargados){
+                        Five();}
+                    else{
+                        System.out.println(mensajeDatos);
+                    }
+
 
                     break;
                 case 6:
