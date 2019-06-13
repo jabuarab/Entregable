@@ -8,6 +8,8 @@ public class NationalOlympicCommitte {
 
     private String notes;
 
+    int[] medallas={0,0,0,0};
+
     public NationalOlympicCommitte(String name, String region, String notes) {
         this.name = name;
         this.region = region;
@@ -42,6 +44,15 @@ public class NationalOlympicCommitte {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int[] getMedallas() {
+        return medallas;
+    }
+
+    public void setMedallas(int[] medallas) {
+        this.medallas = medallas;
+    }
+
 
 
 }
