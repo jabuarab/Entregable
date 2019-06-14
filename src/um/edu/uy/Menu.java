@@ -1,7 +1,5 @@
 package um.edu.uy;
 
-
-import java.security.PrivateKey;
 import java.util.Scanner;
 
 public class Menu {
@@ -28,7 +26,7 @@ public class Menu {
     }
 
     public static void menu() {
-        boolean datoscargados = false;
+        boolean datoscCargados = false;
         boolean salir = false;
         String mensajeDatos = "No hay datos cargados :(";
 
@@ -45,7 +43,7 @@ public class Menu {
 
             switch (sc.nextInt()) {
                 case 0:
-                    if(!datoscargados){
+                    if(!datoscCargados){
                         Repositorio.init();
                     }else{
                         System.out.println("Datos ya cargados :)");
@@ -53,7 +51,7 @@ public class Menu {
                     break;
 
                 case 1:
-                    if(datoscargados){
+                    if(datoscCargados){
                     One();}
                     else{
                         System.out.println(mensajeDatos);
@@ -62,7 +60,7 @@ public class Menu {
                     break;
                 case 2:
 
-                    if(datoscargados){
+                    if(datoscCargados){
                         Two();
                     }
                     else{
@@ -72,7 +70,7 @@ public class Menu {
                     break;
                 case 3:
 
-                    if(datoscargados){
+                    if(datoscCargados){
                         Three();
                     }
                     else{
@@ -83,7 +81,7 @@ public class Menu {
                     break;
                 case 4:
 
-                    if(datoscargados){
+                    if(datoscCargados){
                         Four();
                     }
                     else{
@@ -93,7 +91,7 @@ public class Menu {
                     break;
                 case 5:
 
-                    if(datoscargados){
+                    if(datoscCargados){
                         Five();}
                     else{
                         System.out.println(mensajeDatos);
