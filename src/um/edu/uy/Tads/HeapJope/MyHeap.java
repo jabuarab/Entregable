@@ -1,4 +1,4 @@
-package Heap;
+package um.edu.uy.Tads.HeapJope;
 
 public interface MyHeap<K extends Comparable<K>, T> {
 

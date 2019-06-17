@@ -44,6 +44,8 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
         throw new KeyNotFoundException();
     }
 
+
+
     @Override
     public boolean contains(K key) {
 
@@ -82,5 +84,14 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
 
     public ArrayList<HashNode<K, T>>[] getHash() {
         return hash;
+    }
+
+    public ArrayList<HashNode<K, T>> getTodos(K key)  {
+
+        ArrayList<HashNode<K, T>> a = hash[hashFun(key)];
+
+        return a;
+
+
     }
 }

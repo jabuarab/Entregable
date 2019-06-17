@@ -8,6 +8,16 @@ public class AthleteOlympicParticipation {
 
     private OlympicGame juegoOlimpico;
 
+    private Event evento;
+
+    public Event getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Event evento) {
+        this.evento = evento;
+    }
+
     public AthleteOlympicParticipation(MedalType medalType, Athlete atleta, OlympicGame juegoOlimpico) {
         this.medalType = medalType;
         this.atleta = atleta;

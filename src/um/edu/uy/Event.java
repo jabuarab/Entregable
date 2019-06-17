@@ -11,6 +11,7 @@ public class Event {
         this.deporte = deporte;
     }
 
+
     public String getName() {
         return name;
     }
