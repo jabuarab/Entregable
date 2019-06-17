@@ -23,7 +23,7 @@ public class Repositorio {
 
     public static OpenHash<Integer, AthleteOlympicParticipation> participations = new OpenHash<>(140000, 140000);
 
-    public static OpenHash<String,Team> teams = new OpenHash<>(300, 300);
+    public static OpenHash<String, Team> teams = new OpenHash<>(300, 300);
 
 
     public static void init() {
@@ -33,7 +33,7 @@ public class Repositorio {
 
         System.out.println("Cargando datos...");
 
-        long previousid =-1;
+        long previousid = -1;
 
 
         String line1;
@@ -54,8 +54,8 @@ public class Repositorio {
 
                 String[] nocs = line1.split(",");
 
-                if (nocs[0].equals("SIN")){
-                    nocs[0]= "SGP";
+                if (nocs[0].equals("SIN")) {
+                    nocs[0] = "SGP";
                 }
 
 
@@ -126,41 +126,41 @@ public class Repositorio {
                 atleta[7] = atleta[7].substring(1, atleta[7].length() - 1);
 
                 Team team = new Team(atleta[6]);
-                if(teams != null){
-                if(!teams.contains(team.getNombre()) ){
-                    teams.put(team.getNombre(),team);
+                if (teams != null) {
+                    if (!teams.contains(team.getNombre())) {
+                        teams.put(team.getNombre(), team);
+                    }
                 }
-                }
-                if (teams == null){
-                    teams.put(team.getNombre(),team);
+                if (teams == null) {
+                    teams.put(team.getNombre(), team);
                 }
 
-                int regiontemp=-1;
-                int cualNoc=-1;
-                for(int i = 0;i<regions.getHash().length;i++){
-                    for (int j = 0; j< regions.getHash()[i].size();j++){
-                        if (atleta[7].equals(regions.getHash()[i].get(j).getData().getName())){
-                            cualNoc= j;
+                int regiontemp = -1;
+                int cualNoc = -1;
+                for (int i = 0; i < regions.getHash().length; i++) {
+                    for (int j = 0; j < regions.getHash()[i].size(); j++) {
+                        if (atleta[7].equals(regions.getHash()[i].get(j).getData().getName())) {
+                            cualNoc = j;
                             regiontemp = i;
                         }
 
                     }
                 }
-                int tempInt=0;
+                int tempInt = 0;
                 Athlete tempAtleta;
                 try {
                     Athlete tempAtleta1 = new Athlete(id, name, sex, age, height, weight,
                             team, regions.getHash()[regiontemp].get(cualNoc).getData());
-                    tempAtleta=tempAtleta1;
-                }catch ( NegativeArraySizeException e1) {
-                        System.out.println("Esta mal algo en agrgar los atletas");
-                      for (int j=0;j<regions.getTodos("NA").size();j++){
-                          if(regions.getTodos("NA").get(j).getData().getName().equals(atleta[7])){
-                            tempInt=j;
-                          }
-                      }
-                    Athlete tempAtleta1 = new Athlete(id, name, sex, age, height, weight, team,regions.getTodos("NA").get(tempInt).getData());
-                    tempAtleta=tempAtleta1;
+                    tempAtleta = tempAtleta1;
+                } catch (NegativeArraySizeException e1) {
+                    System.out.println("Esta mal algo en agrgar los atletas");
+                    for (int j = 0; j < regions.getTodos("NA").size(); j++) {
+                        if (regions.getTodos("NA").get(j).getData().getName().equals(atleta[7])) {
+                            tempInt = j;
+                        }
+                    }
+                    Athlete tempAtleta1 = new Athlete(id, name, sex, age, height, weight, team, regions.getTodos("NA").get(tempInt).getData());
+                    tempAtleta = tempAtleta1;
 
                 }
                 if (tempAtleta.getId() != previousid) {
@@ -199,10 +199,7 @@ public class Repositorio {
 
                 atleta[13] = atleta[13].substring(1, atleta[13].length() - 1);
 
-                Event evento= new Event(atleta[13], sport);
-
-                //atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
-                int arraymMdalVAr = 0;
+                Event evento = new Event(atleta[13], sport);
 
                 atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
 
@@ -214,21 +211,21 @@ public class Repositorio {
                     case "Gold":
 
                         medal = MedalType.GOLD;
-                        arraymMdalVAr = 1;
+                        arrayMedalVar = 1;
 
                         break;
                     case "Silver":
 
                         medal = MedalType.SILVER;
 
-                        arraymMdalVAr = 2;
+                        arrayMedalVar = 2;
 
                         break;
                     case "Bronze":
 
                         medal = MedalType.BRONZE;
 
-                        arraymMdalVAr = 3;
+                        arrayMedalVar = 3;
 
 
                         break;
@@ -236,7 +233,7 @@ public class Repositorio {
 
                         medal = MedalType.NA;
 
-                        arraymMdalVAr = 0;
+                        arrayMedalVar = 0;
                         break;
                 }
 
@@ -253,7 +250,7 @@ public class Repositorio {
                             a[0] = a[0] + 1;
 
 
-                            actulizarMedallas(atleta[7],Integer.parseInt(atleta[0]),atletas,a);
+                            actulizarMedallas(atleta[7], Integer.parseInt(atleta[0]), atletas, a);
 
                             int[] a1 = regions.get(tempAtleta.getNoc().getName()).getMedallas();
 
@@ -261,7 +258,7 @@ public class Repositorio {
 
                             a1[0] = a1[0] + 1;
 
-                            actulizarMedallasNC(atleta[7],Integer.parseInt(atleta[0]),regions,a1);
+                            actulizarMedallasNC(atleta[7], Integer.parseInt(atleta[0]), regions, a1);
 
 
                             regions.get(tempAtleta.getNoc().getName()).setMedallas(a1);
@@ -307,36 +304,24 @@ public class Repositorio {
         }
 
 
-
-
     }
 
-    public static um.edu.uy.Tads.Heap.Heap<Athlete,Integer > medalTotalAtleth = new um.edu.uy.Tads.Heap.Heap<Athlete,Integer >(10);
+    public static Heap<Integer, Athlete> medalTotalAthlete = new Heap<>(135571, false);
 
-    public static  um.edu.uy.Tads.Heap.Heap<String,Integer> medalTotalNC = new um.edu.uy.Tads.Heap.Heap<String,Integer>(10);
+    public static Heap<Integer,String> medalTotalNOC = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<Athlete,Integer > medalGoldAtleth = new um.edu.uy.Tads.Heap.Heap<Athlete,Integer >(10);
+    public static Heap<Integer, Athlete> medalGoldAthlete = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<String,Integer> medalGoldNC = new um.edu.uy.Tads.Heap.Heap<String,Integer>(10);
+    public static Heap<Integer, String> medalGoldNOC = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<Athlete,Integer > medalSilverAtleth = new um.edu.uy.Tads.Heap.Heap<Athlete,Integer >(10);
+    public static Heap<Integer, Athlete> medalSilverAthlete = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<String,Integer> medalSilverNC = new um.edu.uy.Tads.Heap.Heap<String,Integer>(10);
+    public static Heap<Integer, String> medalSilverNOC = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<Athlete,Integer > medalBronceAtleth = new um.edu.uy.Tads.Heap.Heap<Athlete,Integer >(10);
+    public static Heap<Integer, Athlete> medalBronzeAthlete = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<String,Integer> medalBronceNC = new um.edu.uy.Tads.Heap.Heap<String, Integer>(10);
+    public static Heap<Integer,String> medalBronceNOC = new Heap<>(135571, false);
 
-    public static um.edu.uy.Tads.Heap.Heap<OlympicGame, Integer>olimpicGamesOrdenado = new um.edu.uy.Tads.Heap.Heap<OlympicGame, Integer>(10);
-
-    public static void actulizarMedallas(String noc , int id, OpenHash<String, Athlete> atletas, int[] a ){
-        atletas.getTodos(noc).get(id).getData().setMedallas(a);
-    }
-
-    public static void actulizarMedallasNC(String noc ,int id,OpenHash<String, NationalOlympicCommitte> region,int[] a ){
-        region.getTodos(noc).get(id).getData().setMedallas(a);/////////////// mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-    }
-
-
+    public static Heap<Integer, OlympicGame> olympicGamesOrdenado = new Heap<>(135571, false);
 
 }

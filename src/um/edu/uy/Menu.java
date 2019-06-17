@@ -5,7 +5,6 @@ import um.edu.uy.Tads.Hash.HashNode;
 import um.edu.uy.Tads.Hash.OpenHash;
 import um.edu.uy.Tads.Heap.Nodo;
 import um.edu.uy.Tads.HeapJope.Heap;
-import um.edu.uy.Tads.HeapJope.HeapNodo;
 import um.edu.uy.Tads.KeyNotFoundException;
 import um.edu.uy.Tads.QueueJope.ListaQueue;
 import uy.edu.um.prog2.exceptions.EmptyQueueException;
@@ -13,7 +12,6 @@ import uy.edu.um.prog2.exceptions.EmptyQueueException;
 import java.time.Year;
 import java.util.ArrayList;
 
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Menu {
@@ -35,7 +33,7 @@ public class Menu {
                         if (hashA[i] != null)
                             for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
                                 if (hashA[i].get(j).getData().getMedallas()[0] != 0) {
-                                    Repositorio.medalTotalAtleth.add(hashA[i].get(j).getData().getMedallas()[0], hashA[i].get(j).getData());
+                                    Repositorio.medalTotalAthlete.add(hashA[i].get(j).getData().getMedallas()[0], hashA[i].get(j).getData());
                                 }
 
                     }
@@ -44,7 +42,7 @@ public class Menu {
                 }
                 for (int k = 0; k < 10; k++) {
 
-                    um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasTotal = Repositorio.medalTotalAtleth;
+                    um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasTotal = Repositorio.medalTotalAthlete;
                     printTop10Atletas(listaAtletasTotal, 0);
                 }
 
@@ -55,13 +53,13 @@ public class Menu {
                     for (int i = 0; i < hashA.length; i++) {
                         for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
                             if (hashA[i].get(j).getData().getMedallas()[1] != 0) {
-                                Repositorio.medalGoldAtleth.add(hashA[i].get(j).getData().getMedallas()[1], hashA[i].get(j).getData());
+                                Repositorio.medalGoldAthlete.add(hashA[i].get(j).getData().getMedallas()[1], hashA[i].get(j).getData());
                             }
                         ;
                     }
                     medallasOroA = true;
                 }
-                um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasOro = Repositorio.medalTotalAtleth;
+                um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasOro = Repositorio.medalTotalAthlete;
 
                 printTop10Atletas(listaAtletasOro, 1);
 
@@ -72,13 +70,13 @@ public class Menu {
                     for (int i = 0; i < hashA.length; i++) {
                         for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
                             if (hashA[i].get(j).getData().getMedallas()[2] != 0) {
-                                Repositorio.medalSilverAtleth.add(hashA[i].get(j).getData().getMedallas()[2], hashA[i].get(j).getData());
+                                Repositorio.medalSilverAthlete.add(hashA[i].get(j).getData().getMedallas()[2], hashA[i].get(j).getData());
                             }
                         ;
                     }
                     medallasPlataA = true;
                 }
-                um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasPlata = Repositorio.medalTotalAtleth;
+                um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasPlata = Repositorio.medalTotalAthlete;
                 printTop10Atletas(listaAtletasPlata, 2);
 
                 break;
@@ -87,13 +85,13 @@ public class Menu {
                     for (int i = 0; i < hashA.length; i++) {
                         for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
                             if (hashA[i].get(j).getData().getMedallas()[3] != 0) {
-                                Repositorio.medalBronceAtleth.add(hashA[i].get(j).getData().getMedallas()[3], hashA[i].get(j).getData());
+                                Repositorio.medalBronzeAthlete.add(hashA[i].get(j).getData().getMedallas()[3], hashA[i].get(j).getData());
                             }
                         ;
                     }
                     medallasBronceA = true;
                 }
-                um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasbronce = Repositorio.medalTotalAtleth;
+                um.edu.uy.Tads.Heap.Heap<Athlete, Integer> listaAtletasbronce = Repositorio.medalTotalAthlete;
                 printTop10Atletas(listaAtletasbronce, 3);
                 break;
             default:
@@ -122,11 +120,11 @@ public class Menu {
                                 cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[0];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
                     medallasTotalesNC = true;
                 }
-                Nodo<String, Integer>[] listaNOCTotal = Repositorio.medalTotalNC.getHeap();// completar
+                Nodo<String, Integer>[] listaNOCTotal = Repositorio.medalTotalNOC.getHeap();// completar
                 printTop10Noc(listaNOCTotal, 0);
 
                 break;
@@ -139,12 +137,12 @@ public class Menu {
                                 cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[1];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
 
                     medallasOroNC = true;
                 }
-                Nodo<String, Integer>[] listaNOCOro = Repositorio.medalGoldNC.getHeap();// completar
+                Nodo<String, Integer>[] listaNOCOro = Repositorio.medalGoldNOC.getHeap();// completar
                 printTop10Noc(listaNOCOro, 1);
 
                 break;
@@ -157,12 +155,12 @@ public class Menu {
                                 cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[2];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
 
                     medallasPlataNC = true;
                 }
-                Nodo<String, Integer>[] listaNOCPlata = Repositorio.medalSilverNC.getHeap();// completar
+                Nodo<String, Integer>[] listaNOCPlata = Repositorio.medalSilverNOC.getHeap();// completar
                 printTop10Noc(listaNOCPlata, 2);
 
                 break;
@@ -175,13 +173,13 @@ public class Menu {
                                  cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[3];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
 
                     medallasBronceNC = true;
                 }
 
-                Nodo<String, Integer>[] listaNOCBronce = Repositorio.medalBronceNC.getHeap();// completar
+                Nodo<String, Integer>[] listaNOCBronce = Repositorio.medalBronceNOC.getHeap();// completar
                 printTop10Noc(listaNOCBronce, 3);
                 break;
             default:

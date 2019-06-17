@@ -2,15 +2,11 @@ package um.edu.uy.Tads.HeapJope;
 
 public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
-    private int size;
     private HeapNodo<K, T>[] heap;
     private boolean minHeap;
-    //private HeapNodo<K, T> root = heap[0];
     private int lastPosition = 0;
 
     public Heap(int size, boolean minHeap) {
-
-        this.size = size;
 
         heap = new HeapNodo[size];
 
@@ -21,7 +17,7 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
     @Override
     public void add(K key, T data) {
 
-        HeapNodo<K, T> lastNode;
+        int tempPos = 0;
 
         if (heap[0] == null) {
 
@@ -31,6 +27,8 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
             lastPosition++;
 
+            tempPos = lastPosition;
+
             heap[lastPosition] = new HeapNodo<>(key, data);
 
         }
@@ -39,19 +37,23 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
             if (minHeap) {
 
-                while (getParentFrom(lastPosition) >= 0 &&
-                        heap[getParentFrom(lastPosition)].getKey().compareTo(heap[lastPosition].getKey()) > 0) {
+                while (getParentFrom(tempPos) >= 0 &&
+                        heap[getParentFrom(tempPos)].getKey().compareTo(heap[tempPos].getKey()) > 0) {
 
-                    swapNodes(getParentFrom(lastPosition), lastPosition);
+                    swapNodes(getParentFrom(tempPos), tempPos);
+
+                    tempPos = getParentFrom(tempPos);
 
                 }
 
             } else {
 
-                while (getParentFrom(lastPosition) >= 0 &&
-                        heap[getParentFrom(lastPosition)].getKey().compareTo(heap[lastPosition].getKey()) < 0) {
+                while (getParentFrom(tempPos) >= 0 &&
+                        heap[getParentFrom(tempPos)].getKey().compareTo(heap[tempPos].getKey()) < 0) {
 
-                    swapNodes(getParentFrom(lastPosition), lastPosition);
+                    swapNodes(getParentFrom(tempPos), tempPos);
+
+                    tempPos = getParentFrom(tempPos);
 
                 }
             }
@@ -79,11 +81,17 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
             lastPosition--;
 
-            int bestChild = findBestChild(0);
+            int currentPos = 0;
 
-            while (heap[bestChild].getKey().compareTo(heap[0].getKey()) < 0) {
+            int bestChild = findBestChild(currentPos);
 
-                swapNodes(0, bestChild);
+            while (heap[bestChild].getKey().compareTo(heap[currentPos].getKey()) < 0) {
+
+                swapNodes(currentPos, bestChild);
+
+                currentPos = bestChild;
+
+                bestChild = findBestChild(currentPos);
 
             }
 
@@ -99,14 +107,12 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
     public void view() {
 
-        for (int i = 0; i < level(0); i++) {
+        for (HeapNodo<K, T> ele : heap) {
 
-            for (int j = 1; i < level(0); j++) {
+            System.out.println(ele.getKey());
 
-                System.out.println(" ");
-
-            }
         }
+
     }
 
     public void swapNodes(int node1Pos, int node2Pos) {
@@ -205,17 +211,19 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
     public int getLeftChildFrom(int pos) {
 
-        return 2 * pos + 1;
+        int newPos = 2 * pos + 1;
+
+        if (newPos > lastPosition) return lastPosition;
+        else return newPos;
 
     }
 
     public int getRightChildFrom(int pos) {
 
-        return (2 * pos + 2);
+        int newPos = 2 * pos + 2;
+
+        if (newPos > lastPosition) return lastPosition;
+        else return newPos;
 
     }
-
-
-
-
 }
