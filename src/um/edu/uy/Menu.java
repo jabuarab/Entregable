@@ -1,6 +1,7 @@
 package um.edu.uy;
 
 
+
 import um.edu.uy.Tads.Hash.HashNode;
 import um.edu.uy.Tads.Hash.OpenHash;
 import um.edu.uy.Tads.HeapJope.Heap;
@@ -9,6 +10,7 @@ import um.edu.uy.Tads.KeyNotFoundException;
 
 import java.time.Year;
 import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -265,7 +267,7 @@ public class Menu {
 
 
     public static void menu() {
-        boolean datoscargados = false;
+        boolean datoscCargados = false;
         boolean salir = false;
         String mensajeDatos = "No hay datos cargados :(";
 
@@ -282,9 +284,9 @@ public class Menu {
 
             switch (sc.nextInt()) {                //aca tendriamos que manejar la exepcion de si nos madna alguna letra o null o algo que no sea un numero
                 case 0:
-                    if (!datoscargados) {
+                    if(!datoscCargados){
                         Repositorio.init();
-                        datoscargados = true;
+                        datoscCargados = true;
                     } else {
                         System.out.println("Datos ya cargados :)");
 
@@ -292,16 +294,17 @@ public class Menu {
                     break;
 
                 case 1:
-                    if (datoscargados) {
-                        One();
-                    } else {
+                    if(datoscCargados){
+                    One();}
+                    else{
                         System.out.println(mensajeDatos);
                     }
 
                     break;
                 case 2:
 
-                    if (datoscargados) {
+                    if(datoscCargados){
+
                         Two();
                     } else {
                         System.out.println(mensajeDatos);
@@ -310,7 +313,7 @@ public class Menu {
                     break;
                 case 3:
 
-                    if (datoscargados) {
+                    if(datoscCargados){
                         Three();
                     } else {
                         System.out.println(mensajeDatos);
@@ -320,7 +323,8 @@ public class Menu {
                     break;
                 case 4:
 
-                    if (datoscargados) {
+
+                    if(datoscCargados){
                         Four();
                     } else {
                         System.out.println(mensajeDatos);
@@ -329,13 +333,14 @@ public class Menu {
                     break;
                 case 5:
 
-                    if (datoscargados) {
+                    if (datoscCargados) {
                         try {
                             Five();        ///////////// try y catch
                         } catch (KeyNotFoundException e) {
                             e.printStackTrace();
                         }
                     } else {
+
                         System.out.println(mensajeDatos);
                     }
 

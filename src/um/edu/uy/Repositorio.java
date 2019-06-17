@@ -39,6 +39,7 @@ public class Repositorio {
 
         long previousid =-1;
 
+
         String line1;
 
         String line2;
@@ -56,19 +57,25 @@ public class Repositorio {
             while ((line1 = br1.readLine()) != null) {
 
                 String[] nocs = line1.split(",");
+
                 if (nocs[0].equals("SIN")){
                     nocs[0]= "SGP";
                 }
 
 
+                if (nocs[0].equals("SIN")) nocs[0] = "SGP";
+
                 if (nocs.length == 3) {
+
                     nocs[2] = nocs[2].substring(1, nocs[2].length() - 1);
 
                     regions.put(nocs[0], new NationalOlympicCommitte(nocs[0], nocs[1], nocs[2]));
 
-                } else regions.put(nocs[0], new NationalOlympicCommitte(nocs[0], nocs[1], null));
+                } else {
 
+                    regions.put(nocs[0], new NationalOlympicCommitte(nocs[0], nocs[1], null));
 
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,20 +88,19 @@ public class Repositorio {
 
             while ((line2 = br2.readLine()) != null) {
 
-                String[] atleta = line2.split(",");
+                String[] atleta = line2.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-                //atleta[0] = atleta[0].substring(1, atleta[0].length() - 1);
+                atleta[0] = atleta[0].substring(1, atleta[0].length() - 1);
 
                 long id = Long.valueOf(atleta[0]);
 
-                //atleta[1] = atleta[1].substring(1, atleta[1].length() - 1);
-
+                atleta[1] = atleta[1].substring(1, atleta[1].length() - 1);
 
                 String name = atleta[1];
 
-                SexType sex;
+                atleta[2] = atleta[2].substring(1, atleta[2].length() - 1);
 
-                //atleta[2] = atleta[2].substring(1, atleta[2].length() - 1);
+                SexType sex;
 
                 if (atleta[2].equals("M")) {
 
@@ -121,7 +127,7 @@ public class Repositorio {
                 if (!atleta[5].equals("NA")) weight = Float.parseFloat(atleta[5]);
                 else weight = 0;
 
-                //atleta[7] = atleta[7].substring(1, atleta[7].length() - 1);
+                atleta[7] = atleta[7].substring(1, atleta[7].length() - 1);
 
                 Team team = new Team(atleta[6]);  // no estamos agregando gente
 
@@ -130,13 +136,21 @@ public class Repositorio {
                 }
                 Athlete tempAtleta = new Athlete(id, name, sex, age, height, weight,
                         team, regions.get(atleta[7]));
+
+
+
+
                 if (tempAtleta.getId() != previousid) {
+
                     atletas.put(tempAtleta.getNoc().getName(), tempAtleta);
+
                 }
+
                 previousid = tempAtleta.getId();
+
                 SeasonType season;
 
-                //atleta[10] = atleta[10].substring(1, atleta[10].length() - 1);
+                atleta[10] = atleta[10].substring(1, atleta[10].length() - 1);
 
                 if (atleta[10].equals("Winter")) {
 
@@ -148,69 +162,101 @@ public class Repositorio {
 
                 }
 
-                //atleta[11] = atleta[11].substring(1, atleta[11].length() - 1);
+                atleta[11] = atleta[11].substring(1, atleta[11].length() - 1);
 
                 City city = new City(atleta[11]);
 
-                //atleta[8] = atleta[8].substring(1, atleta[8].length() - 1);
+                atleta[8] = atleta[8].substring(1, atleta[8].length() - 1);
 
                 OlympicGame game = new OlympicGame(atleta[8], Integer.parseInt(atleta[9]), season, city);
 
-                //atleta[12] = atleta[12].substring(1, atleta[12].length() - 1);
+                atleta[12] = atleta[12].substring(1, atleta[12].length() - 1);
 
                 Sport sport = new Sport(atleta[12]);
 
-                //atleta[13] = atleta[13].substring(1, atleta[13].length() - 1);
+                atleta[13] = atleta[13].substring(1, atleta[13].length() - 1);
 
                 Event evento= new Event(atleta[13], sport);
 
                 //atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
                 int arraymMdalVAr = 0;
+
+                atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
+
+                int arrayMedalVar = 0;
+
                 MedalType medal;
 
                 switch (atleta[14]) {
                     case "Gold":
+
                         medal = MedalType.GOLD;
                         arraymMdalVAr = 1;
+
                         break;
                     case "Silver":
+
                         medal = MedalType.SILVER;
+
                         arraymMdalVAr = 2;
+
                         break;
                     case "Bronze":
+
                         medal = MedalType.BRONZE;
+
                         arraymMdalVAr = 3;
+
+
                         break;
                     default:
+
                         medal = MedalType.NA;
+
                         arraymMdalVAr = 0;
                         break;
                 }
 
-                if (arraymMdalVAr != 0) {
-                    switch (arraymMdalVAr) {
+                if (arrayMedalVar != 0) {
+
+                    switch (arrayMedalVar) {
+
                         case 1:
+
                             int[] a = atletas.get(atleta[0]).getMedallas();
+
                             a[1] = a[1] + 1;
+
                             a[0] = a[0] + 1;
+
                             atletas.get(atleta[0]).setMedallas(a);  // estoy en duda si esto funciona bien
+
                             int[] a1 = regions.get(tempAtleta.getNoc().getName()).getMedallas();
+
                             a1[1] = a1[1] + 1;
+
                             a1[0] = a1[0] + 1;
+
+
                             regions.get(tempAtleta.getNoc().getName()).setMedallas(a1);
+
                             break;
                         case 2:
+
                             int[] b = atletas.get(atleta[0]).getMedallas();
                             b[2] = b[2] + 1;
                             b[0] = b[0] + 1;
                             atletas.get(atleta[0]).setMedallas(b);  // estoy en duda si esto funciona bien
+
                             int[] b1 = regions.get(tempAtleta.getNoc().getName()).getMedallas();
                             b1[1] = b1[1] + 1;
                             b1[0] = b1[0] + 1;
+
                             regions.get(tempAtleta.getNoc().getName()).setMedallas(b1);
 
                             break;
                         case 3:
+
                             int[] c = atletas.get(atleta[0]).getMedallas();
                             c[2] = c[2] + 1;
                             c[0] = c[0] + 1;
@@ -219,6 +265,7 @@ public class Repositorio {
                             c1[1] = c1[1] + 1;
                             c1[0] = c1[0] + 1;
                             regions.get(tempAtleta.getNoc().getName()).setMedallas(c1);
+
                             break;
                     }
                 }
@@ -230,7 +277,6 @@ public class Repositorio {
         } catch (IOException | KeyNotFoundException e) {
             e.printStackTrace();
         }
-
 
     }
 
