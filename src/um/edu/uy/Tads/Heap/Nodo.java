@@ -1,9 +1,9 @@
 package um.edu.uy.Tads.Heap;
 
 public class Nodo<T,K extends Comparable> implements Comparable {
-    private Nodo<T,K> leftChild = new Nodo<>();
-    private Nodo<T,K> rigthChild = new Nodo<>();
-    private Nodo<T,K> Parent= new Nodo<>();
+    private Nodo<T,K> leftChild = new Nodo<T,K>();
+    private Nodo<T,K> rigthChild = new Nodo<T,K>();
+    private Nodo<T,K> Parent= new Nodo<T,K>();
     private T value;
     private K key ;
 

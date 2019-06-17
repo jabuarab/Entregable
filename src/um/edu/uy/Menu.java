@@ -5,7 +5,6 @@ import um.edu.uy.Tads.Hash.HashNode;
 import um.edu.uy.Tads.Hash.OpenHash;
 import um.edu.uy.Tads.Heap.Nodo;
 import um.edu.uy.Tads.HeapJope.Heap;
-import um.edu.uy.Tads.HeapJope.HeapNodo;
 import um.edu.uy.Tads.KeyNotFoundException;
 import um.edu.uy.Tads.QueueJope.ListaQueue;
 import uy.edu.um.prog2.exceptions.EmptyQueueException;
@@ -13,7 +12,6 @@ import uy.edu.um.prog2.exceptions.EmptyQueueException;
 import java.time.Year;
 import java.util.ArrayList;
 
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Menu {
@@ -32,12 +30,14 @@ public class Menu {
             case 1:
                 if (!medallasTotalesA) {
                     for (int i = 0; i < hashA.length; i++) {
-                        if (hashA[i] != null)
-                            for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
+                        if (hashA[i] != null) {
+                            int largo = hashA[i].size();
+                            for (int j = 0; j < largo; j++)//
+
                                 if (hashA[i].get(j).getData().getMedallas()[0] != 0) {
                                     Repositorio.medalTotalAtleth.add(hashA[i].get(j).getData().getMedallas()[0], hashA[i].get(j).getData());
                                 }
-
+                        }
                     }
 
                     medallasTotalesA = true;
@@ -53,9 +53,9 @@ public class Menu {
             case 2:
                 if (!medallasOroA) {
                     for (int i = 0; i < hashA.length; i++) {
-                        for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
+                        for (int j = 0; j < hashA[i].size(); j++)// menor o menor igual?
                             if (hashA[i].get(j).getData().getMedallas()[1] != 0) {
-                                Repositorio.medalGoldAtleth.add(hashA[i].get(j).getData().getMedallas()[1], hashA[i].get(j).getData());
+                                Repositorio.medalGoldAtleth.add(hashA[i].get(j).getData().getMedallas()[1], hashA[i].get(j).getData()); // esto esta todo null
                             }
                         ;
                     }
@@ -70,7 +70,7 @@ public class Menu {
             case 3:
                 if (!medallasPlataA) {
                     for (int i = 0; i < hashA.length; i++) {
-                        for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
+                        for (int j = 0; j < hashA[i].size(); j++)// menor o menor igual?
                             if (hashA[i].get(j).getData().getMedallas()[2] != 0) {
                                 Repositorio.medalSilverAtleth.add(hashA[i].get(j).getData().getMedallas()[2], hashA[i].get(j).getData());
                             }
@@ -85,9 +85,9 @@ public class Menu {
             case 4:
                 if (!medallasBronceA) {
                     for (int i = 0; i < hashA.length; i++) {
-                        for (int j = 0; i < hashA[i].size(); i++)// menor o menor igual?
+                        for (int j = 0; j < hashA[i].size(); j++)// menor o menor igual?
                             if (hashA[i].get(j).getData().getMedallas()[3] != 0) {
-                                Repositorio.medalBronceAtleth.add(hashA[i].get(j).getData().getMedallas()[3], hashA[i].get(j).getData());
+                                Repositorio.medalBronceAtlethe.add(hashA[i].get(j).getData().getMedallas()[3], hashA[i].get(j).getData());
                             }
                         ;
                     }
@@ -115,14 +115,14 @@ public class Menu {
         switch (sc.nextInt()) {
             case 1:
                 if (!medallasTotalesNC) {
-                    int cantMedallas =0;
+                    int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
                             if (hashNC[i].get(j).getData().getMedallas()[0] != 0) {
-                                cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[0];
+                                cantMedallas = cantMedallas + hashNC[i].get(j).getData().getMedallas()[0];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
                     medallasTotalesNC = true;
                 }
@@ -132,14 +132,14 @@ public class Menu {
                 break;
             case 2:
                 if (!medallasOroNC) {
-                    int cantMedallas=0;
+                    int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
                             if (hashNC[i].get(j).getData().getMedallas()[1] != 0) {
-                                cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[1];
+                                cantMedallas = cantMedallas + hashNC[i].get(j).getData().getMedallas()[1];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
 
                     medallasOroNC = true;
@@ -150,38 +150,38 @@ public class Menu {
                 break;
             case 3:
                 if (!medallasPlataNC) {
-                    int cantMedallas=0;
+                    int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
                             if (hashNC[i].get(j).getData().getMedallas()[2] != 0) {
-                                cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[2];
+                                cantMedallas = cantMedallas + hashNC[i].get(j).getData().getMedallas()[2];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
 
                     medallasPlataNC = true;
                 }
-                Nodo<String, Integer>[] listaNOCPlata = Repositorio.medalSilverNC.getHeap();// completar
+                Nodo<String, Integer>[] listaNOCPlata = Repositorio.medalSilverNOC.getHeap();// completar
                 printTop10Noc(listaNOCPlata, 2);
 
                 break;
             case 4:
                 if (!medallasBronceNC) {
-                    int cantMedallas=0;
+                    int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
                             if (hashNC[i].get(j).getData().getMedallas()[3] != 0) {
-                                 cantMedallas = cantMedallas +hashNC[i].get(j).getData().getMedallas()[3];
+                                cantMedallas = cantMedallas + hashNC[i].get(j).getData().getMedallas()[3];
 
                             }
-                        Repositorio.medalBronceNC.add(cantMedallas, hashNC[i].get(0).getKey());
+                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
                     }
 
                     medallasBronceNC = true;
                 }
 
-                Nodo<String, Integer>[] listaNOCBronce = Repositorio.medalBronceNC.getHeap();// completar
+                Nodo<String, Integer>[] listaNOCBronce = Repositorio.medalBronceNOC.getHeap();// completar
                 printTop10Noc(listaNOCBronce, 3);
                 break;
             default:
@@ -201,24 +201,25 @@ public class Menu {
             ArrayList<HashNode<Integer, AthleteOlympicParticipation>>[] participaciones = Repositorio.participations.getHash();
             for (int i = 0; i < participaciones.length; i++) {
                 int count = 0;
-
-                for (int j = 0; j < participaciones[i].size(); j++) {
-                    if (participaciones[i].get(j).getData().getAtleta().getSex().equals(sexTemp)) {
-                        count = count + 1;
+                if (participaciones[i] != null) {
+                    for (int j = 0; j < participaciones[i].size(); j++) {
+                        if (participaciones[i].get(j).getData().getAtleta().getSex().equals(sexTemp)) {
+                            count = count + 1;
+                        }
+                        Repositorio.olympicGamesOrdenado.add(count, participaciones[i].get(j).getData().getJuegoOlimpico());
                     }
-                    Repositorio.olimpicGamesOrdenado.add(count, participaciones[i].get(j).getData().getJuegoOlimpico());
                 }
 
 
             }
             atletasFemeninas = true;
         }
-        for (int j = 0; j < Repositorio.olimpicGamesOrdenado.getHeap().length; j++) {
-            System.out.println("-Nombre:" + Repositorio.olimpicGamesOrdenado.getHeap()[j].getValue().getName());
-            System.out.print("-Anio:" + Repositorio.olimpicGamesOrdenado.getHeap()[j].getValue().getYear());
-            System.out.print("Cantdida de atletas femeninos:" + Repositorio.olimpicGamesOrdenado.getHeap()[j].getKey());
+        for (int j = 0; j < Repositorio.olympicGamesOrdenado.getHeap().length; j++) {
+            System.out.println("-Nombre:" + Repositorio.olympicGamesOrdenado.getHeap()[j].getValue().getName());
+            System.out.print("-Anio:" + Repositorio.olympicGamesOrdenado.getHeap()[j].getValue().getYear());
+            System.out.print("Cantdida de atletas femeninos:" + Repositorio.olympicGamesOrdenado.getHeap()[j].getKey());
         }
-        Nodo<OlympicGame, Integer>[] a = Repositorio.olimpicGamesOrdenado.getHeap();
+        Nodo<OlympicGame, Integer>[] a = Repositorio.olympicGamesOrdenado.getHeap();
 
     }
 
@@ -253,7 +254,7 @@ public class Menu {
                     equiposTempHash.get(equipo.getNombre()).medallas[1] = a[1] + b[1];
                     equiposTempHash.get(equipo.getNombre()).medallas[2] = a[2] + b[2];
                     equiposTempHash.get(equipo.getNombre()).medallas[3] = a[3] + b[3];
-                    equiposTempHash.get(equipo.getNombre()).atletas.add(Repositorio.atletas.getTodos(noc.getName()).get(j).getData());
+                    equiposTempHash.get(equipo.getNombre()).atletas.add( Repositorio.atletas.getTodos(noc.getName()).get(j).getData());
                 }
             }
 
