@@ -139,12 +139,20 @@ public class Repositorio {
                 int regiontemp = -1;
                 int cualNoc = -1;
                 for (int i = 0; i < regions.getHash().length; i++) {
+<<<<<<< HEAD
                     if (regions.getHash()[i] != null) {
                         for (int j = 0; j < regions.getHash()[i].size(); j++) {
                             if (atleta[7].equals(regions.getHash()[i].get(j).getData().getName())) {
                                 cualNoc = j;
                                 regiontemp = i;
                             }
+=======
+                    for (int j = 0; j < regions.getHash()[i].size(); j++) {
+                        if (atleta[7].equals(regions.getHash()[i].get(j).getData().getName())) {
+                            cualNoc = j;
+                            regiontemp = i;
+                        }
+>>>>>>> d468af8319de696562aec5a0fdd89b422e581fef
 
                         }
                     }
@@ -204,8 +212,11 @@ public class Repositorio {
                 atleta[13] = atleta[13].substring(1, atleta[13].length() - 1);
 
                 Event evento = new Event(atleta[13], sport);
+<<<<<<< HEAD
 
                 //atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
+=======
+>>>>>>> d468af8319de696562aec5a0fdd89b422e581fef
 
                 atleta[14] = atleta[14].substring(1, atleta[14].length() - 1);
 
@@ -261,6 +272,7 @@ public class Repositorio {
                             a[1] = a[1] + 1;
 
                             a[0] = a[0] + 1;
+<<<<<<< HEAD
                             atletas.getTodos(atleta[7]).get(posicion).getData().setMedallas(a);
                             int[] a1 = {0, 0, 0, 0};
                             int posicion1 = -1;
@@ -277,11 +289,27 @@ public class Repositorio {
                                     }
                                 }
                             }
+=======
+
+
+                            actulizarMedallas(atleta[7], Integer.parseInt(atleta[0]), atletas, a);
+
+                            int[] a1 = regions.get(tempAtleta.getNoc().getName()).getMedallas();
+>>>>>>> d468af8319de696562aec5a0fdd89b422e581fef
 
                             a1[1] = a1[1] + 1;
 
                             a1[0] = a1[0] + 1;
+<<<<<<< HEAD
                             regions.getHash()[posicion1].get(posicion2).getData().setMedallas(a1);
+=======
+
+                            actulizarMedallasNC(atleta[7], Integer.parseInt(atleta[0]), regions, a1);
+
+
+                            regions.get(tempAtleta.getNoc().getName()).setMedallas(a1);
+
+>>>>>>> d468af8319de696562aec5a0fdd89b422e581fef
                             break;
                         case 2:
 
@@ -374,6 +402,7 @@ public class Repositorio {
 
     }
 
+<<<<<<< HEAD
     public static um.edu.uy.Tads.Heap.Heap<Athlete, Integer> medalTotalAtleth = new um.edu.uy.Tads.Heap.Heap<Athlete, Integer>(10);
 
     public static um.edu.uy.Tads.Heap.Heap<String, Integer> medalTotalNC = new um.edu.uy.Tads.Heap.Heap<String, Integer>(10);
@@ -391,6 +420,24 @@ public class Repositorio {
     public static um.edu.uy.Tads.Heap.Heap<String, Integer> medalBronceNOC = new um.edu.uy.Tads.Heap.Heap<String, Integer>(10);
 
     public static um.edu.uy.Tads.Heap.Heap<OlympicGame, Integer> olympicGamesOrdenado = new um.edu.uy.Tads.Heap.Heap<OlympicGame, Integer>(10);
+=======
+    public static Heap<Integer, Athlete> medalTotalAthlete = new Heap<>(135571, false);
 
+    public static Heap<Integer,String> medalTotalNOC = new Heap<>(135571, false);
+
+    public static Heap<Integer, Athlete> medalGoldAthlete = new Heap<>(135571, false);
+
+    public static Heap<Integer, String> medalGoldNOC = new Heap<>(135571, false);
+
+    public static Heap<Integer, Athlete> medalSilverAthlete = new Heap<>(135571, false);
+
+    public static Heap<Integer, String> medalSilverNOC = new Heap<>(135571, false);
+
+    public static Heap<Integer, Athlete> medalBronzeAthlete = new Heap<>(135571, false);
+
+    public static Heap<Integer,String> medalBronceNOC = new Heap<>(135571, false);
+>>>>>>> d468af8319de696562aec5a0fdd89b422e581fef
+
+    public static Heap<Integer, OlympicGame> olympicGamesOrdenado = new Heap<>(135571, false);
 
 }
