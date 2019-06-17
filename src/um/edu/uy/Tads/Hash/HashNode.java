@@ -26,14 +26,14 @@ public class HashNode<K extends Comparable<K>, T> {
     }
 
     public T getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(T data) {
         this.data = data;
     }
 
-    public int getState() { return state; }
+    public int getState() { return this.state; }
 
     public void setState(int state) { this.state = state; }
 }

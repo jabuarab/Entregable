@@ -4,12 +4,14 @@ import um.edu.uy.Tads.KeyNotFoundException;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
 
     private int size;
     private ArrayList<HashNode<K, T>>[] hash;
     private int mod;
-
+    private HashNode<K, T> pepe;
 
     public OpenHash(int size, int mod) {
         this.size = size;
@@ -35,6 +37,7 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
         }
     }
 
+
     @Override
     public T get(K key) throws KeyNotFoundException {
 
@@ -48,10 +51,9 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
 
     @Override
     public boolean contains(K key) {
-
+        if( hash[hashFun(key)] != null)
         for (HashNode<K, T> node : hash[hashFun(key)])
             if (node.getKey().compareTo(key) == 0) return true;
-
         return false;
 
     }
@@ -79,18 +81,16 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     }
 
     public int hashFun(K key) {
-        return key.hashCode() % mod;
+        return abs(key.hashCode() % mod);
     }
 
     public ArrayList<HashNode<K, T>>[] getHash() {
-        return hash;
+        return this.hash;
     }
 
     public ArrayList<HashNode<K, T>> getTodos(K key)  {
 
-        ArrayList<HashNode<K, T>> a = hash[hashFun(key)];
-
-        return a;
+        return this.hash[hashFun(key)];
 
 
     }

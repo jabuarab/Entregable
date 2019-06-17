@@ -1,5 +1,7 @@
 package um.edu.uy.Tads.Heap;
 
+import um.edu.uy.Tads.Hash.HashNode;
+
 public class Heap<T, K extends Comparable> {
     private int length;
     private int last;
@@ -20,7 +22,8 @@ public class Heap<T, K extends Comparable> {
 
 
 
-    public void add(Nodo<T, K> nodotemp) {
+    public void add(K key,T value) {
+        Nodo<T,K> nodotemp = new Nodo<T,K>();
         heapArray[last] = nodotemp;
         swapup(last);
         last = last + 1;
@@ -166,6 +169,11 @@ public class Heap<T, K extends Comparable> {
         last = last - 1;
         return aux;
     }
+    public  Nodo<T,K>[] getHeap() {
+
+        return this.heapArray;
+
+    }
 
     public int getLength() {
         return length;
@@ -178,4 +186,6 @@ public class Heap<T, K extends Comparable> {
     public Nodo<T, K> getLast() {
         return heapArray[last - 1];
     }
+
+
 }
