@@ -10,11 +10,14 @@ import um.edu.uy.Tads.QueueJope.ListaQueue;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.Scanner;
 
 public class Report {
 
     public static void One() {
+
+        Formatter fmt = new Formatter();
 
         Scanner sc = new Scanner(System.in);
 
@@ -27,6 +30,7 @@ public class Report {
                 + " 4- Medallas de bronce\n");
 
         Athlete atleta;
+        int minYear, maxYear, tempYear;
 
         switch (sc.nextInt()) {
 
@@ -38,18 +42,28 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                     minYear = 2500;
+                     maxYear = 0;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (!part.getData().getMedalType().equals(MedalType.NA)) totalMedallas++;
 
-                    }
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
 
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
+                    }
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         totalMedals.add(totalMedallas, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
                     }
                     totalMedallas = 0;
+
                 }
 
                 for (int i = 0; i < 10; i++) {
@@ -58,7 +72,8 @@ public class Report {
 
                     atleta = totalMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + "medallas.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " +  atleta.getSex() +
+                            "  -  " + cantMedals + " medallas entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -72,13 +87,23 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                    minYear = 2500;
+                    maxYear = 0;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (part.getData().getMedalType().equals(MedalType.GOLD)) allGoldMedals++;
 
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
                     }
 
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         goldMedals.add(allGoldMedals, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
@@ -92,7 +117,8 @@ public class Report {
 
                     atleta = goldMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + " medallas de oro.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " + atleta.getSex() + "   -   " +
+                            cantMedals + " medallas de oro entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -106,13 +132,23 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                    maxYear = 0;
+                    minYear = 2500;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (part.getData().getMedalType().equals(MedalType.SILVER)) allSilverMedals++;
 
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
                     }
 
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         silverMedals.add(allSilverMedals, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
@@ -126,7 +162,8 @@ public class Report {
 
                     atleta = silverMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + " medallas de plata.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " + atleta.getSex() + "   -   " +
+                            cantMedals + " medallas de plata entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -140,13 +177,23 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                    minYear = 2500;
+                    maxYear = 0;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (part.getData().getMedalType().equals(MedalType.BRONZE)) allBronzeMedals++;
 
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
                     }
 
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         bronzeMedals.add(allBronzeMedals, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
@@ -160,7 +207,8 @@ public class Report {
 
                     atleta = bronzeMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + " medallas de bronce.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + " - " + atleta.getSex() + "   -   " +
+                            cantMedals + " medallas de bronce entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 

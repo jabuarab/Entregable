@@ -10,8 +10,8 @@ public class Athlete {
     private float weigth;
     private Team team;
     private NationalOlympicCommitte noc;
-    private int[] medals = {0, 0, 0, 0};
-
+    private int debutGames;
+    private int retirementGames;
 
     public Athlete(long id, String name, SexType sex, int age, float heigth, float weigth, Team team, NationalOlympicCommitte noc) {
         this.id = id;
@@ -88,24 +88,19 @@ public class Athlete {
         this.noc = noc;
     }
 
-    public int[] getMedals() {
-        return medals;
+    public int getDebutGames() {
+        return debutGames;
     }
 
-    public void addMedal(MedalType medal) {
-        switch (medal) {
-            case GOLD:
-                medals[1]++;
-                medals[0]++;
-                break;
-            case SILVER:
-                medals[2]++;
-                medals[0]++;
-                break;
-            case BRONZE:
-                medals[3]++;
-                medals[0]++;
-                break;
-        }
+    public void setDebutGames(int debutGames) {
+        this.debutGames = debutGames;
+    }
+
+    public int getRetirementGames() {
+        return retirementGames;
+    }
+
+    public void setRetirementGames(int retirementGames) {
+        this.retirementGames = retirementGames;
     }
 }
