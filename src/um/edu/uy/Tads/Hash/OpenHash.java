@@ -11,10 +11,8 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     private int size;
     private ArrayList<HashNode<K, T>>[] hash;
     private int mod;
-    private HashNode<K, T> pepe;
 
     public OpenHash(int size, int mod) {
-        this.size = size;
         hash = new ArrayList[size];
         this.mod = mod;
     }
@@ -29,6 +27,8 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
             hash[pos] = new ArrayList<>(10);
 
             hash[pos].add(new HashNode<>(key, data));
+
+            size++;
 
         } else {
 
@@ -92,6 +92,9 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
 
         return this.hash[hashFun(key)];
 
+    }
 
+    public int getSize() {
+        return size;
     }
 }
