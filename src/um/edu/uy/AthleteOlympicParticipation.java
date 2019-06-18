@@ -44,6 +44,7 @@ public class AthleteOlympicParticipation {
         return medalType;
     }
 
+
     public void setMedalType(MedalType medalType) {
         this.medalType = medalType;
     }

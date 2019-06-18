@@ -85,16 +85,30 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
             int bestChild = findBestChild(currentPos);
 
-            while (heap[bestChild].getKey().compareTo(heap[currentPos].getKey()) < 0) {
+            if (minHeap) {
 
-                swapNodes(currentPos, bestChild);
+                while (heap[bestChild].getKey().compareTo(heap[currentPos].getKey()) < 0) {
 
-                currentPos = bestChild;
+                    swapNodes(currentPos, bestChild);
 
-                bestChild = findBestChild(currentPos);
+                    currentPos = bestChild;
 
+                    bestChild = findBestChild(currentPos);
+
+                }
+
+            } else {
+
+                while (heap[bestChild].getKey().compareTo(heap[currentPos].getKey()) > 0) {
+
+                    swapNodes(currentPos, bestChild);
+
+                    currentPos = bestChild;
+
+                    bestChild = findBestChild(currentPos);
+
+                }
             }
-
             return rootTemp;
 
         }
@@ -151,7 +165,7 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
             if (heap[getLeftChildFrom(pos)] != null && heap[getRightChildFrom(pos)] != null) {
 
-                if (heap[getLeftChildFrom(pos)].getKey().compareTo(heap[getRightChildFrom(pos)].getKey()) > 0) {
+                if (heap[getLeftChildFrom(pos)].getKey().compareTo(heap[getRightChildFrom(pos)].getKey()) < 0) {
 
                     return getRightChildFrom(pos);
 
@@ -197,9 +211,9 @@ public class Heap<K extends Comparable<K>, T> implements MyHeap<K, T> {
 
     }
 
-    public HeapNodo<K, T> getRoot() {
+    public K getRoot() {
 
-        return heap[0];
+        return heap[0].getKey();
 
     }
 

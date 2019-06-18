@@ -12,7 +12,6 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     private ArrayList<HashNode<K, T>>[] hash;
     private int mod;
 
-
     public OpenHash(int size, int mod) {
         this.size = size;
         hash = new ArrayList[size];
