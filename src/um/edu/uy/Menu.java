@@ -56,14 +56,14 @@ public class Menu {
 
                     break;
 
-                /*case 2:
+                case 2:
 
                     if (datosCargados) Report.Two();
                     else System.out.println("Primero deben ser cargados los datos.");
 
                     break;
 
-                case 3:
+                /*case 3:
 
                     if (datosCargados) Report.Three();
                     else System.out.println("Primero deben ser cargados los datos.");

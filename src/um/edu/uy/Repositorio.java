@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Repositorio {
 
 
-    public static OpenHash<String, Athlete> atletas = new OpenHash<>(232, 232);
+    //public static OpenHash<String, Athlete> atletas = new OpenHash<>(232, 232);
 
     public static OpenHash<Long, Athlete> atletas1 = new OpenHash<>(140000, 140000);
 
@@ -26,6 +26,8 @@ public class Repositorio {
     public static OpenHash<String, NationalOlympicCommitte> regionsXnoc = new OpenHash<>(232, 232);
 
     public static OpenHash<Long, AthleteOlympicParticipation> participations = new OpenHash<>(140000, 140000);
+
+    public static OpenHash<String, AthleteOlympicParticipation> participationsXregion = new OpenHash<>(300, 300);
 
     public static OpenHash<String, Team> teams = new OpenHash<>(300, 300);
 
@@ -75,7 +77,7 @@ public class Repositorio {
 
             while ((line1 = br1.readLine()) != null) {
 
-                String[] nocs = line1.split(",");
+                String[] nocs = line1.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
                 if (nocs[0].equals("SIN")) nocs[0] = "SGP";
 
@@ -147,8 +149,6 @@ public class Repositorio {
 
                 if (tempAtleta.getId() != previousId) {
 
-                    atletas.put(tempAtleta.getNoc().getName(), tempAtleta);
-
                     atletas1.put(id, tempAtleta);
 
                 }
@@ -185,21 +185,15 @@ public class Repositorio {
 
                         medal = MedalType.GOLD;
 
-                        //        atletas.getTodos(atleta[7])addMedal(MedalType.GOLD);
-
                         break;
                     case "Silver":
 
                         medal = MedalType.SILVER;
 
-                        //      atletas.getTodos(atleta[7])addMedal(MedalType.SILVER);
-
                         break;
                     case "Bronze":
 
                         medal = MedalType.BRONZE;
-
-                        //    atletas.getTodos(atleta[7])addMedal(MedalType.BRONZE);
 
                         break;
                     default:
@@ -212,7 +206,8 @@ public class Repositorio {
                 AthleteOlympicParticipation participacionTemp = new AthleteOlympicParticipation(medal, tempAtleta, game);
                 participacionTemp.setEvento(event);
 
-                //participations.put(participacionTemp.getJuegoOlimpico().getYear(), participacionTemp);
+                participationsXregion.put(tempAtleta.getNoc().getName(),participacionTemp);
+
                 participations.put(id, participacionTemp);
 
             }

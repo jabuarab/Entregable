@@ -17,11 +17,7 @@ public class Report {
 
     public static void One() {
 
-        Formatter fmt = new Formatter();
-
         Scanner sc = new Scanner(System.in);
-
-        ArrayList<HashNode<String, Athlete>>[] hashA = Repositorio.atletas.getHash();
 
         System.out.println("Seleccione una opcion:\n"
                 + " 1- Medallas totales\n"
@@ -30,6 +26,7 @@ public class Report {
                 + " 4- Medallas de bronce\n");
 
         Athlete atleta;
+
         int minYear, maxYear, tempYear;
 
         switch (sc.nextInt()) {
@@ -42,8 +39,8 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
-                     minYear = 2500;
-                     maxYear = 0;
+                    minYear = 2500;
+                    maxYear = 0;
 
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
@@ -72,7 +69,7 @@ public class Report {
 
                     atleta = totalMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " +  atleta.getSex() +
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " + atleta.getSex() +
                             "  -  " + cantMedals + " medallas entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
@@ -216,33 +213,55 @@ public class Report {
         }
     }
 
-   /* public static void Two() {
-        ArrayList<HashNode<String, NationalOlympicCommitte>>[] hashNC = Repositorio.regions.getHash();
-        System.out.println("Seleccione una opcion: \n"
-                + " 1- Medallas totales\n"
-                + " 2- Medallas de oro \n"
-                + " 3- Medallas de plata \n"
-                + " 4- Medallas de bronce\n");
-        switch (sc.nextInt()) {
-            case 1:
-                if (!medallasTotalesNC) {
-                    int cantMedallas = 0;
-                    for (int i = 0; i < hashNC.length; i++) {
-                        for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
-                            if (hashNC[i].get(j).getData().getMedallas()[0] != 0) {
-                                cantMedallas = cantMedallas + hashNC[i].get(j).getData().getMedallas()[0];
+    public static void Two() {
 
-                            }
-                        Repositorio.medalBronceNOC.add(cantMedallas, hashNC[i].get(0).getKey());
+        Scanner sc = new Scanner(System.in);
+
+        NationalOlympicCommitte noc;
+
+        System.out.println("Seleccione una opcion:\n"
+                + "     1- Medallas totales\n"
+                + "     2- Medallas de oro\n"
+                + "     3- Medallas de plata\n"
+                + "     4- Medallas de bronce\n");
+
+        switch (sc.nextInt()) {
+
+
+            case 1:
+
+                Heap<Integer, NationalOlympicCommitte> regionsMedals = new Heap<>(300, false);
+
+                int totalMedallas = 0;
+
+                for (int i = 0; i < Repositorio.participationsXregion.getSize(); i++) {
+
+                    if (Repositorio.participationsXregion.getHash()[i] != null) {
+
+                        for (int j = 0; j < Repositorio.participationsXregion.getHash()[i].size(); j++) {
+
+                            if (!Repositorio.participationsXregion.getHash()[i].get(j).getData().getMedalType().equals(MedalType.NA))
+                                totalMedallas++;
+                        }
+
+                        regionsMedals.add(totalMedallas, Repositorio.regions.getHash()[i].get(0).getData());
                     }
-                    medallasTotalesNC = true;
+                    totalMedallas = 0;
                 }
-                Nodo<String, Integer>[] listaNOCTotal = Repositorio.medalTotalNOC.getHeap();// completar
-                printTop10Noc(listaNOCTotal, 0);
+
+                for (int i = 0; i < 10; i++) {
+
+                    int cantMedals = regionsMedals.getRoot();
+
+                    noc = regionsMedals.removeRoot();
+
+                    System.out.println(i + 1 + "  -  " + noc.getName() + "  -  " + cantMedals + " medallas. ");
+                }
 
                 break;
+
             case 2:
-                if (!medallasOroNC) {
+                /*if (!medallasOroNC) {
                     int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
@@ -257,10 +276,10 @@ public class Report {
                 }
                 Nodo<String, Integer>[] listaNOCOro = Repositorio.medalGoldNOC.getHeap();// completar
                 printTop10Noc(listaNOCOro, 1);
-
+*/
                 break;
             case 3:
-                if (!medallasPlataNC) {
+  /*              if (!medallasPlataNC) {
                     int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
@@ -275,10 +294,10 @@ public class Report {
                 }
                 Nodo<String, Integer>[] listaNOCPlata = Repositorio.medalSilverNOC.getHeap();// completar
                 printTop10Noc(listaNOCPlata, 2);
-
+*/
                 break;
             case 4:
-                if (!medallasBronceNC) {
+ /*               if (!medallasBronceNC) {
                     int cantMedallas = 0;
                     for (int i = 0; i < hashNC.length; i++) {
                         for (int j = 0; i < hashNC[i].size(); i++)// menor o menor igual?
@@ -293,18 +312,17 @@ public class Report {
                 }
 
                 Nodo<String, Integer>[] listaNOCBronce = Repositorio.medalBronceNOC.getHeap();// completar
-                printTop10Noc(listaNOCBronce, 3);
+               printTop10Noc(listaNOCBronce, 3);
+   */
                 break;
             default:
 
                 System.out.println("Opcion no valida.");
                 break;
         }
-
-
     }
 
-    public static void Three() {
+    /*public static void Three() {
         if (!atletasFemeninas) {
             SexType sexTemp = SexType.FEMALE;
             int juegoolimpico = -1;

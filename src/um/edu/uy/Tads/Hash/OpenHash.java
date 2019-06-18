@@ -48,12 +48,11 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     }
 
 
-
     @Override
     public boolean contains(K key) {
-        if( hash[hashFun(key)] != null)
-        for (HashNode<K, T> node : hash[hashFun(key)])
-            if (node.getKey().compareTo(key) == 0) return true;
+        if (hash[hashFun(key)] != null)
+            for (HashNode<K, T> node : hash[hashFun(key)])
+                if (node.getKey().compareTo(key) == 0) return true;
         return false;
 
     }
@@ -81,14 +80,30 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     }
 
     public int hashFun(K key) {
-        return abs(key.hashCode() % mod);
+
+        if (key instanceof String) {
+
+            String key1 = (String) key;
+
+            int k = key1.length();
+            int u = 0, n;
+
+            char[] key2 = key1.toCharArray();
+
+            for (int i = 0; i < k; i++) {
+                n = (int) key2[i];
+                u += i * n % 31;
+            }
+            return u % 139;
+
+        } else return abs(key.hashCode() % mod);
     }
 
     public ArrayList<HashNode<K, T>>[] getHash() {
         return this.hash;
     }
 
-    public ArrayList<HashNode<K, T>> getTodos(K key)  {
+    public ArrayList<HashNode<K, T>> getTodos(K key) {
 
         return this.hash[hashFun(key)];
 
