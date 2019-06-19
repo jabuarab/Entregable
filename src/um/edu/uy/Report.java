@@ -8,8 +8,10 @@ import um.edu.uy.Tads.HeapJope.HeapNodo;
 import um.edu.uy.Tads.KeyNotFoundException;
 import um.edu.uy.Tads.QueueJope.ListaQueue;
 
+import java.lang.invoke.SwitchPoint;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.Scanner;
 
 public class Report {
@@ -18,7 +20,6 @@ public class Report {
 
         Scanner sc = new Scanner(System.in);
 
-
         System.out.println("Seleccione una opcion:\n"
                 + " 1- Medallas totales\n"
                 + " 2- Medallas de oro\n"
@@ -26,6 +27,8 @@ public class Report {
                 + " 4- Medallas de bronce\n");
 
         Athlete atleta;
+
+        int minYear, maxYear, tempYear;
 
         switch (sc.nextInt()) {
 
@@ -37,17 +40,29 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
-                    for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
+                    minYear = 2500;
+                    maxYear = 0;
+                    if (Repositorio.participations.getTodos(i) != null) {
+                        for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
-                        if (!part.getData().getMedalType().equals(MedalType.NA)) totalMedallas++;
-                    }
+                            if (!part.getData().getMedalType().equals(MedalType.NA)) totalMedallas++;
 
-                    try {
-                        totalMedals.add(totalMedallas, Repositorio.atletas1.get(i));
-                    } catch (KeyNotFoundException e) {
-                        e.printStackTrace();
+                            tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                            if (tempYear > maxYear) maxYear = tempYear;
+                            if (tempYear < minYear) minYear = tempYear;
+
+                        }
+                        try {
+                            Repositorio.atletas1.get(i).setDebutGames(minYear);
+                            Repositorio.atletas1.get(i).setRetirementGames(maxYear);
+                            totalMedals.add(totalMedallas, Repositorio.atletas1.get(i));
+                        } catch (KeyNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        totalMedallas = 0;
+
                     }
-                    totalMedallas = 0;
                 }
 
                 for (int i = 0; i < 10; i++) {
@@ -56,7 +71,8 @@ public class Report {
 
                     atleta = totalMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + "medallas.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " + atleta.getSex() +
+                            "  -  " + cantMedals + " medallas entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -70,13 +86,23 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                    minYear = 2500;
+                    maxYear = 0;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (part.getData().getMedalType().equals(MedalType.GOLD)) allGoldMedals++;
 
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
                     }
 
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         goldMedals.add(allGoldMedals, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
@@ -90,7 +116,8 @@ public class Report {
 
                     atleta = goldMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + " medallas de oro.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " + atleta.getSex() + "   -   " +
+                            cantMedals + " medallas de oro entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -104,13 +131,23 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                    maxYear = 0;
+                    minYear = 2500;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (part.getData().getMedalType().equals(MedalType.SILVER)) allSilverMedals++;
 
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
                     }
 
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         silverMedals.add(allSilverMedals, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
@@ -124,7 +161,8 @@ public class Report {
 
                     atleta = silverMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + " medallas de plata.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + "  -  " + atleta.getSex() + "   -   " +
+                            cantMedals + " medallas de plata entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -138,13 +176,23 @@ public class Report {
 
                 for (long i = 1; i < Repositorio.participations.getSize(); i++) {
 
+                    minYear = 2500;
+                    maxYear = 0;
+
                     for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getTodos(i)) {
 
                         if (part.getData().getMedalType().equals(MedalType.BRONZE)) allBronzeMedals++;
 
+                        tempYear = part.getData().getJuegoOlimpico().getYear();
+
+                        if (tempYear > maxYear) maxYear = tempYear;
+                        if (tempYear < minYear) minYear = tempYear;
+
                     }
 
                     try {
+                        Repositorio.atletas1.get(i).setDebutGames(minYear);
+                        Repositorio.atletas1.get(i).setRetirementGames(maxYear);
                         bronzeMedals.add(allBronzeMedals, Repositorio.atletas1.get(i));
                     } catch (KeyNotFoundException e) {
                         e.printStackTrace();
@@ -158,7 +206,8 @@ public class Report {
 
                     atleta = bronzeMedals.removeRoot();
 
-                    System.out.println(i + 1 + "  -  " + atleta.getName() + "   -   " + cantMedals + " medallas de bronce.");
+                    System.out.println(i + 1 + "  -  " + atleta.getName() + " - " + atleta.getSex() + "   -   " +
+                            cantMedals + " medallas de bronce entre " + atleta.getDebutGames() + " - " + atleta.getRetirementGames());
 
                 }
 
@@ -273,79 +322,120 @@ public class Report {
                 System.out.println("Opcion no valida.");
                 break;
         }
+
     }
 
     public static void Three() {
-        OpenHash<String, OlympicGame> jjoo = new OpenHash<String,OlympicGame>(100000, 100000);
-        Heap<Integer,OlympicGame>  jjooh = new Heap<Integer,OlympicGame>(1000,false);
+        OpenHash<String, OlympicGame> jjoo = new OpenHash<String, OlympicGame>(100000, 100000);
+        Heap<Integer, OlympicGame> jjooh = new Heap<Integer, OlympicGame>(1000, false);
 
         for (int i = 0; i < Repositorio.participations.getHash().length; i++)
-            if (Repositorio.participations.getHash()[i] !=null ){
+            if (Repositorio.participations.getHash()[i] != null) {
                 ArrayList<String> yaParticipo = new ArrayList<String>(10000);
-                for (int j = 0;j<Repositorio.participations.getHash()[i].size();j++){
-                    if (Repositorio.participations.getHash()[i].get(j).getData().getAtleta().getSex().equals(SexType.FEMALE) && !yaParticipo.contains(Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico().getName())){
-                        jjoo.put(Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico().getName(),Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico());
+                for (int j = 0; j < Repositorio.participations.getHash()[i].size(); j++) {
+                    if (Repositorio.participations.getHash()[i].get(j).getData().getAtleta().getSex().equals(SexType.FEMALE) && !yaParticipo.contains(Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico().getName())) {
+                        jjoo.put(Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico().getName(), Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico());
                         yaParticipo.add(Repositorio.participations.getHash()[i].get(j).getData().getJuegoOlimpico().getName());
                     }
                 }
             }
-        for (int k=0;k<jjoo.getHash().length;k++){
-            if (jjoo.getHash()[k] !=null){
-                int participantes=0;
-                for (int j =0;j<jjoo.getHash()[k].size();j++){
-                    if(jjoo.getHash()[k].get(j) != null){
+        for (int k = 0; k < jjoo.getHash().length; k++) {
+            if (jjoo.getHash()[k] != null) {
+                int participantes = 0;
+                for (int j = 0; j < jjoo.getHash()[k].size(); j++) {
+                    if (jjoo.getHash()[k].get(j) != null) {
                         participantes++;
                     }
-                }jjooh.add(participantes,jjoo.getHash()[k].get(0).getData());
+                }
+                jjooh.add(participantes, jjoo.getHash()[k].get(0).getData());
 
             }
         }
 
         for (int i = 0; i < 10; i++) {
 
-            int cantParticipantesF= jjooh.getRoot();
+            int cantParticipantesF = jjooh.getRoot();
 
-            OlympicGame jjootemp= jjooh.removeRoot();
+            OlympicGame jjootemp = jjooh.removeRoot();
 
-            System.out.println(i + 1 + "  -  " +jjootemp.getName()  + "   -   "+ jjootemp.getYear()+"   -   "+ cantParticipantesF+ " participantes Femeninos.");
+            System.out.println(i + 1 + "  -  " + jjootemp.getName() + "   -   " + jjootemp.getYear() + "   -   " + cantParticipantesF + " participantes Femeninos.");
 
         }
 
     }
 
+    public static void Four() {
 
-    }
+        System.out.println("Seleccione el sexo:" +
+                "\n 1: femenino" +
+                "\n 2: masculino");
+
+        Scanner sc = new Scanner(System.in);
+        SexType A = null;
+        boolean tempBool = false;
+        switch (sc.nextInt()) {
+            case 1:
+                A = SexType.FEMALE;
+                tempBool = true;
+                break;
+            case 2:
+                A = SexType.MALE;
+                tempBool = true;
+                break;
+            default:
+                tempBool = false;
+                break;
+        }
+
+        if (tempBool) {
 
 
-   /* public static void Three() {
-        if (!atletasFemeninas) {
-            SexType sexTemp = SexType.FEMALE;
-            int juegoolimpico = -1;
+            Heap<Integer, Event> competicionHeap = new Heap<Integer, Event>(10000, false);
+            OpenHash<String, Event> competicion = new OpenHash<String, Event>(10000, 10000);
+            for (int i = 0; i < Repositorio.participations.getHash().length; i++) {
+                if (Repositorio.participations.getHash()[i] != null) {
+                    ArrayList<String> listaRepetidos = new ArrayList<String>(10000);
+                    for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getHash()[i]) {
+                        if (part.getData().getAtleta().getSex().equals(A) && !listaRepetidos.contains(part.getData().getEvento().getName())) {
+                            competicion.put(part.getData().getEvento().getName(), part.getData().getEvento());
+                            listaRepetidos.add(part.getData().getEvento().getName());
 
-            ArrayList<HashNode<Integer, AthleteOlympicParticipation>>[] participaciones = Repositorio.participations.getHash();
-            for (int i = 0; i < participaciones.length; i++) {
-                int count = 0;
-
-                for (int j = 0; j < participaciones[i].size(); j++) {
-                    if (participaciones[i].get(j).getData().getAtleta().getSex().equals(sexTemp)) {
-                        count = count + 1;
+                        }
                     }
-                    Repositorio.olimpicGamesOrdenado.add(count, participaciones[i].get(j).getData().getJuegoOlimpico());
-                }
 
+                }
+            }
+            for (int k = 0; k < competicion.getHash().length; k++) {
+                if (competicion.getHash()[k] != null) {
+                    int jugadores = 0;
+                    for (int j = 0; j < competicion.getHash()[k].size(); j++) {
+                        if (competicion.getHash()[k].get(j) != null) {
+                            jugadores++;
+                        }
+                    }
+                    competicionHeap.add(jugadores, competicion.getHash()[k].get(0).getData());
+
+                }
+            }
+
+            for (int i = 0; i < 5; i++) {
+
+                int cantParticipantesF = competicionHeap.getRoot();
+
+                Event compteicion = competicionHeap.removeRoot();
+
+                System.out.println(i + 1 + "  -  " + compteicion.getName() + "   -   " + compteicion.getDeporte().getName() + "   -   " + A + "   -   " + cantParticipantesF + " participantes .");
 
             }
-            atletasFemeninas = true;
+
+
         }
-        for (int j = 0; j < Repositorio.olimpicGamesOrdenado.getHeap().length; j++) {
-            System.out.println("-Nombre:" + Repositorio.olimpicGamesOrdenado.getHeap()[j].getValue().getName());
-            System.out.print("-Anio:" + Repositorio.olimpicGamesOrdenado.getHeap()[j].getValue().getYear());
-            System.out.print("Cantdida de atletas femeninos:" + Repositorio.olimpicGamesOrdenado.getHeap()[j].getKey());
-        }
-        Nodo<OlympicGame, Integer>[] a = Repositorio.olimpicGamesOrdenado.getHeap();
+
 
     }
+}
 
+    /*
     public static void Four() {
 
     }

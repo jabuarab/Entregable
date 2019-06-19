@@ -14,7 +14,6 @@ public class Athlete {
     private int retirementGames;
 
 
-
     public Athlete(long id, String name, SexType sex, int age, float heigth, float weigth, Team team, NationalOlympicCommitte noc) {
         this.id = id;
         this.name = name;
@@ -90,12 +89,19 @@ public class Athlete {
         this.noc = noc;
     }
 
-
     public int getDebutGames() {
         return debutGames;
     }
 
     public void setDebutGames(int debutGames) {
         this.debutGames = debutGames;
+    }
+
+    public int getRetirementGames() {
+        return retirementGames;
+    }
+
+    public void setRetirementGames(int retirementGames) {
+        this.retirementGames = retirementGames;
     }
 }
