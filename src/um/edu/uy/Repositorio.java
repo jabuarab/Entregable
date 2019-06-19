@@ -18,7 +18,7 @@ public class Repositorio {
 
     //public static OpenHash<String, Athlete> atletas = new OpenHash<>(232, 232);
 
-    public static OpenHash<Long, Athlete> atletas1 = new OpenHash<>(140000, 140000);
+    public static OpenHash<Long, Athlete> atletas1 = new OpenHash<>(150000, 150000);
 
     public static OpenHash<String, NationalOlympicCommitte> regions = new OpenHash<>(1500, 1500);
 
@@ -26,7 +26,7 @@ public class Repositorio {
 
     public static OpenHash<String, AthleteOlympicParticipation> participationsXregion = new OpenHash<>(300, 300);
 
-    public static OpenHash<Long, AthleteOlympicParticipation> participations = new OpenHash<>(140000, 140000);
+    public static OpenHash<Long, AthleteOlympicParticipation> participations = new OpenHash<>(150000, 150000);
 
 
     public static OpenHash<String, Team> teams = new OpenHash<>(300, 300);

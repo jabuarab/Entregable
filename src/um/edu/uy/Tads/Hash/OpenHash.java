@@ -78,8 +78,17 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
         }
     }
 
-    public int hashFun(K key) {
+    public ArrayList<HashNode<K, T>>[] getHash() {
+        return this.hash;
+    }
 
+    public int getSize() {
+        return size;
+    }
+
+
+    public int hashFun(K key) {
+/*
         if (key instanceof String) {
 
             String key1 = (String) key;
@@ -95,16 +104,11 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
             }
             return u % 139;
 
-        } else return abs(key.hashCode() % mod);
+        } else */
+            return abs(key.hashCode() % mod);
     }
 
-    public ArrayList<HashNode<K, T>>[] getHash() {
-        return this.hash;
-    }
 
-    public int getSize() {
-        return size;
-    }
 
     public ArrayList<HashNode<K, T>> getTodos(K key) {
 
