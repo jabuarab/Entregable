@@ -6,7 +6,11 @@ public class Team {
 
     private String nombre;
 
-    ArrayList<Athlete> atletas;
+    private ArrayList<Athlete> atletas;
+
+    public Team(String nombre) {
+        this.nombre = nombre;
+    }
 
     public ArrayList<Athlete> getAtletas() {
         return atletas;
@@ -16,10 +20,6 @@ public class Team {
         this.atletas = atletas;
     }
 
-    public Team(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -27,5 +27,4 @@ public class Team {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    int[] medallas ={0,0,0,0};
 }

@@ -33,7 +33,7 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T>{
         } else {
 
             hash[pos].add(new HashNode<>(key, data));
-            size++;
+
         }
     }
 
@@ -92,8 +92,6 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T>{
     }
 
     public ArrayList<HashNode<K, T>> getTodos(K key) {
-
         return this.hash[hashFun(key)];
-
     }
 }

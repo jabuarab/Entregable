@@ -9,21 +9,22 @@ import um.edu.uy.Tads.KeyNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static um.edu.uy.MedalType.NA;
 
 public class Repositorio {
 
-    public static OpenHash<Long, Athlete> atletas1 = new OpenHash<>(140000, 140000);
+    public static OpenHash<Long, Athlete> atletas1 = new OpenHash<>(150000, 150000);
 
-    public static OpenHash<String, NationalOlympicCommitte> regions = new OpenHash<>(1500, 1500);
+    public static OpenHash<Integer, NationalOlympicCommitte> regions = new OpenHash<>(232, 232);
 
     public static OpenHash<String, NationalOlympicCommitte> regionsXnoc = new OpenHash<>(232, 232);
 
-    public static OpenHash<String, AthleteOlympicParticipation> participationsXregion = new OpenHash<>(300, 300);
+    public static OpenHash<Integer, AthleteOlympicParticipation> participationsXregion = new OpenHash<>(300, 300);
 
-    public static OpenHash<Long, AthleteOlympicParticipation> participations = new OpenHash<>(140000, 140000);
+    public static OpenHash<Long, AthleteOlympicParticipation> participations = new OpenHash<>(150000, 150000);
 
 
     public static OpenHash<String, Team> teams = new OpenHash<>(300, 300);
@@ -69,11 +70,15 @@ public class Repositorio {
 
         Athlete tempAtleta = null;
 
+        int idRegion;
+
         try {
 
             br1 = new BufferedReader(new FileReader("resources/noc_regions.csv"));
 
             br1.readLine();
+
+            ArrayList<String> regiones = new ArrayList<>(232);
 
             while ((line1 = br1.readLine()) != null) {
 
@@ -81,17 +86,22 @@ public class Repositorio {
 
                 if (nocs[0].equals("SIN")) nocs[0] = "SGP";
 
+                if (regiones.isEmpty() || !regiones.contains(nocs[1])) regiones.add(nocs[1]);
+
+                idRegion = regiones.indexOf(nocs[1]);
+
                 if (nocs.length == 3) {
 
-                    regions.put(nocs[1], new NationalOlympicCommitte(nocs[0], nocs[1], nocs[2]));
 
-                    regionsXnoc.put(nocs[0], new NationalOlympicCommitte(nocs[0], nocs[1], nocs[2]));
+                    regions.put(idRegion, new NationalOlympicCommitte(idRegion, nocs[0], nocs[1], nocs[2]));
+
+                    regionsXnoc.put(nocs[0], new NationalOlympicCommitte(idRegion,nocs[0], nocs[1], nocs[2]));
 
                 } else {
 
-                    regions.put(nocs[1], new NationalOlympicCommitte(nocs[0], nocs[1], null));
+                    regions.put(idRegion, new NationalOlympicCommitte(idRegion, nocs[0], nocs[1], null));
 
-                    regionsXnoc.put(nocs[0], new NationalOlympicCommitte(nocs[0], nocs[1], null));
+                    regionsXnoc.put(nocs[0], new NationalOlympicCommitte(idRegion,nocs[0], nocs[1], null));
 
                 }
             }
@@ -137,12 +147,14 @@ public class Repositorio {
                 if (!atleta[5].equals("NA")) weight = Float.parseFloat(atleta[5]);
                 else weight = 0;
 
-                atleta[7] = atleta[7].substring(1, atleta[7].length() - 1);
+                atleta[6] = atleta[6].substring(1, atleta[6].length() - 1);
 
                 team = new Team(atleta[6]);
 
                 if (teams != null) if (!teams.contains(team.getNombre())) teams.put(team.getNombre(), team);
                 else teams.put(team.getNombre(), team);
+
+                atleta[7] = atleta[7].substring(1, atleta[7].length() - 1);
 
                 try {
 
@@ -207,7 +219,7 @@ public class Repositorio {
                 AthleteOlympicParticipation participacionTemp = new AthleteOlympicParticipation(medal, tempAtleta, game);
                 participacionTemp.setEvento(event);
 
-                participationsXregion.put(tempAtleta.getNoc().getRegion(), participacionTemp);
+                participationsXregion.put(tempAtleta.getNoc().getId(), participacionTemp);
 
                 participations.put(id, participacionTemp);
 

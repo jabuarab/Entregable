@@ -10,7 +10,7 @@ public interface MyTree<K extends Comparable<K>, T> {
 
     void delete(K key) throws EmptyTreeException;
 
-    int size(Nodo<K, T> nodo);
+    int size();
 
     int countLeaf(Nodo<K, T> nodo);
 

@@ -2,21 +2,23 @@ package um.edu.uy;
 
 public class NationalOlympicCommitte {
 
+    private int id;
+
     private String name;
 
     private String region;
 
     private String notes;
 
-    int[] medallas={0,0,0,0};
-
-    public NationalOlympicCommitte(String name, String region, String notes) {
+    public NationalOlympicCommitte(int id, String name, String region, String notes) {
+        this.id = id;
         this.name = name;
         this.region = region;
         this.notes = notes;
     }
 
-    public NationalOlympicCommitte(String region, String notes) {
+    public NationalOlympicCommitte(String name, String region, String notes) {
+        this.name = name;
         this.region = region;
         this.notes = notes;
     }
@@ -45,14 +47,9 @@ public class NationalOlympicCommitte {
         this.name = name;
     }
 
-    public int[] getMedallas() {
-        return medallas;
+    public int getId() { return id; }
+
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public void setMedallas(int[] medallas) {
-        this.medallas = medallas;
-    }
-
-
-
 }

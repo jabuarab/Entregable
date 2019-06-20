@@ -45,6 +45,10 @@ public class BTree<K extends Comparable<K>, T> implements MyTree<K, T> {
     }
 
     @Override
+    public int size() {
+        return size(root);
+    }
+
     public int size(Nodo<K, T> nodo) {
         int nodeCounting = 1;
         if (nodo.getLeftChild() != null) nodeCounting += size(nodo.getLeftChild());
