@@ -506,69 +506,71 @@ public class Report {
     }
 
     public static void Five() {
-        OpenHash<String, Integer> equiposYMedallas = new OpenHash<String, Integer>(10000, 10000); // Con un array de integer podria saber que tipo de medalla osn
-        Heap<Float, String[]> equiposOrdenados = new Heap<Float, String[]>(10000, false);
         Scanner sc = new Scanner(System.in);
         System.out.println("Indique el año inicial");
         int añoMin = sc.nextInt();
         if (añoMin < 1896) {
-            añoMin = 1895;
+            añoMin = 1896;
         }
         System.out.println("Indique el año final");
         int añoMax = sc.nextInt();
+
         int year = Year.now().getValue();
+        if (añoMax < añoMin) {
+            añoMax = añoMin;
+        }
         if (añoMax > year) {
             añoMax = year;
         }
-        ArrayList<String> equiposXAnio = new ArrayList<>();
-        int largo = Repositorio.participations.getHash().length;
-        for (int i = 0; i < largo; i++) {
+        OpenHash<String, Integer> datos = new OpenHash<>(140000, 140000);
+        String nombre = null;
+        Heap<Float, String[]> equiposOrdenados = new Heap<Float, String[]>(10000, false);
+        int count = 0;
+        int medallas = 0;
+        for (int i = 0; i < Repositorio.participations.getHash().length; i++) {
+
             if (Repositorio.participations.getHash()[i] != null) {
-                boolean booltemp = true;
-                String data = null;
-                String nombreEquipo = null;
-                int cantidadDeMedallas = 0;
+
                 for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getHash()[i]) {
-                    if (part.getData().getJuegoOlimpico().getYear() <= añoMax && part.getData().getJuegoOlimpico().getYear() >= añoMin) {
-                        data = "" + part.getData().getEvento().getName() + part.getData().getAtleta().getTeam().getNombre() + part.getData().getJuegoOlimpico().getYear();
-                        if (!equiposXAnio.contains(data)) {
-                            equiposXAnio.add(data);
-                            if (!part.getData().getMedalType().equals(MedalType.NA)) {
-                                cantidadDeMedallas++;
-                            }
 
+                    if (part.getData().getJuegoOlimpico().getYear() < añoMax && part.getData().getJuegoOlimpico().getYear() > añoMin) {
+
+
+                        if (!part.getData().getMedalType().equals(MedalType.NA)) {
+                            datos.put(part.getData().getAtleta().getTeam().getNombre(), 1);
+                        } else {
+                            datos.put(part.getData().getAtleta().getTeam().getNombre(), 0);
                         }
-
                     }
-                    nombreEquipo = part.getData().getAtleta().getTeam().getNombre();
                 }
-                equiposYMedallas.put(nombreEquipo, cantidadDeMedallas);
             }
         }
-        for (int i = 0; i < equiposYMedallas.getHash().length; i++) {
-            int medallas = 0;
-            int count = 0;
-            String equipo = null;
-            if (equiposYMedallas.getHash()[i] != null) {
-                for (HashNode<String, Integer> nodoTemp : equiposYMedallas.getHash()[i]) {
+        for (int j = 0; j < datos.getHash().length; j++) {
+            if (datos.getHash()[j] != null) {
+                for (HashNode<String, Integer> nodoTemp : datos.getHash()[j]) {
                     count++;
                     medallas = medallas + nodoTemp.getData();
-                    equipo = nodoTemp.getKey();
+                    nombre = nodoTemp.getKey();
+
                 }
-                float relacion = medallas / count;
-                String[] equipo1 = {equipo, medallas + "", count + ""};
-                equiposOrdenados.add(relacion, equipo1);
             }
+            String[] a = {"" + nombre, medallas + "", count + ""};
+            if (nombre != null) {
+                equiposOrdenados.add((float) (medallas / count), a);
+            }
+            medallas = 0;
+            count = 0;
         }
+
+
         for (int c = 0; c < 10; c++) {
+
             String[] tempArrayString = equiposOrdenados.removeRoot();
+
             System.out.println(" Equipo : " + tempArrayString[0] + " - cantidadde competidores: " + tempArrayString[2] +
                     "Cantidad de medallas:" + tempArrayString[1]
                     + "-entre los años (" + añoMax + "-" + añoMin + ")");
-
         }
-
-
     }
 }
 
