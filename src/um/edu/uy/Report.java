@@ -533,7 +533,7 @@ public class Report {
 
                 for (HashNode<Long, AthleteOlympicParticipation> part : Repositorio.participations.getHash()[i]) {
 
-                    if (part.getData().getJuegoOlimpico().getYear() < añoMax && part.getData().getJuegoOlimpico().getYear() > añoMin) {
+                    if (part.getData().getJuegoOlimpico().getYear() <= añoMax && part.getData().getJuegoOlimpico().getYear() >= añoMin) {
 
 
                         if (!part.getData().getMedalType().equals(MedalType.NA)) {
@@ -554,8 +554,9 @@ public class Report {
 
                 }
             }
-            String[] a = {"" + nombre, medallas + "", count + ""};
-            if (nombre != null) {
+
+            if (nombre != null && count != 0) {
+                String[] a = {"" + nombre, medallas + "", count + ""};
                 equiposOrdenados.add((float) (medallas / count), a);
             }
             medallas = 0;
@@ -563,7 +564,7 @@ public class Report {
         }
 
 
-        for (int c = 0; c < 10; c++) {
+        for (int c = 0; c < 5; c++) {
 
             String[] tempArrayString = equiposOrdenados.removeRoot();
 
