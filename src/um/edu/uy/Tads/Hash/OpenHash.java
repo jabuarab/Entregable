@@ -3,10 +3,11 @@ package um.edu.uy.Tads.Hash;
 import um.edu.uy.Tads.KeyNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static java.lang.Math.abs;
 
-public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
+public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T>{
 
     private int size;
     private ArrayList<HashNode<K, T>>[] hash;
@@ -79,23 +80,7 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     }
 
     public int hashFun(K key) {
-
-        if (key instanceof String) {
-
-            String key1 = (String) key;
-
-            int k = key1.length();
-            int u = 0, n;
-
-            char[] key2 = key1.toCharArray();
-
-            for (int i = 0; i < k; i++) {
-                n = (int) key2[i];
-                u += i * n % 31;
-            }
-            return u % 139;
-
-        } else return abs(key.hashCode() % mod);
+        return abs(key.hashCode() % mod);
     }
 
     public ArrayList<HashNode<K, T>>[] getHash() {
@@ -109,7 +94,6 @@ public class OpenHash<K extends Comparable<K>, T> implements MyHash<K, T> {
     public ArrayList<HashNode<K, T>> getTodos(K key) {
 
         return this.hash[hashFun(key)];
-
 
     }
 }

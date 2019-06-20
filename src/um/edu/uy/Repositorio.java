@@ -15,9 +15,6 @@ import static um.edu.uy.MedalType.NA;
 
 public class Repositorio {
 
-
-    //public static OpenHash<String, Athlete> atletas = new OpenHash<>(232, 232);
-
     public static OpenHash<Long, Athlete> atletas1 = new OpenHash<>(140000, 140000);
 
     public static OpenHash<String, NationalOlympicCommitte> regions = new OpenHash<>(1500, 1500);
@@ -69,6 +66,8 @@ public class Repositorio {
         Sport sport;
 
         Event event;
+
+        Athlete tempAtleta = null;
 
         try {
 
@@ -145,21 +144,17 @@ public class Repositorio {
                 if (teams != null) if (!teams.contains(team.getNombre())) teams.put(team.getNombre(), team);
                 else teams.put(team.getNombre(), team);
 
-                Athlete tempAtleta = null;
                 try {
-                    tempAtleta = new Athlete(id, name, sex, age, height, weight,
-                            team, regionsXnoc.get(atleta[7]));
+
+                    tempAtleta = new Athlete(id, name, sex, age, height, weight, team, regionsXnoc.get(atleta[7]));
+
                 } catch (KeyNotFoundException e) {
                     e.printStackTrace();
                 }
 
-                if (tempAtleta.getId() != previousId) {
+                if (tempAtleta != null && tempAtleta.getId() != previousId) atletas1.put(id, tempAtleta);
 
-                    atletas1.put(id, tempAtleta);
-
-                }
-
-                previousId = tempAtleta.getId();
+                if (tempAtleta != null) previousId = tempAtleta.getId();
 
                 atleta[10] = atleta[10].substring(1, atleta[10].length() - 1);
 
@@ -212,7 +207,7 @@ public class Repositorio {
                 AthleteOlympicParticipation participacionTemp = new AthleteOlympicParticipation(medal, tempAtleta, game);
                 participacionTemp.setEvento(event);
 
-                participationsXregion.put(tempAtleta.getNoc().getName(),participacionTemp);
+                participationsXregion.put(tempAtleta.getNoc().getRegion(), participacionTemp);
 
                 participations.put(id, participacionTemp);
 
@@ -224,23 +219,4 @@ public class Repositorio {
             e.printStackTrace();
         }
     }
-
-    public static Heap<Integer, Athlete> medalTotalAthlete = new Heap<>(135571, false);
-
-    public static Heap<Integer, String> medalTotalNOC = new Heap<>(135571, false);
-
-    public static Heap<Integer, Athlete> medalGoldAthlete = new Heap<>(135571, false);
-
-    public static Heap<Integer, String> medalGoldNOC = new Heap<>(135571, false);
-
-    public static Heap<Integer, Athlete> medalSilverAthlete = new Heap<>(135571, false);
-
-    public static Heap<Integer, String> medalSilverNOC = new Heap<>(135571, false);
-
-    public static Heap<Integer, Athlete> medalBronzeAthlete = new Heap<>(135571, false);
-
-    public static Heap<Integer, String> medalBronceNOC = new Heap<>(135571, false);
-
-    public static Heap<Integer, OlympicGame> olympicGamesOrdenado = new Heap<>(135571, false);
-
 }
